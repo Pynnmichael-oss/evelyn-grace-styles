@@ -8,7 +8,7 @@ import Button from './Button'
 export default function Footer() {
   return (
     <footer id="contact" className="border-t border-taupe/30 bg-sand">
-      <div className="mx-auto max-w-6xl px-6 sm:px-10 py-16 md:py-24">
+      <div className="mx-auto max-w-6xl px-6 sm:px-10 py-24 md:py-40 lg:py-48">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <span className="caption-label text-[13px] text-espresso">
             Evelyn Grace Styles

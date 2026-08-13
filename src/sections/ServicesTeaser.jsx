@@ -20,7 +20,7 @@ const SERVICES = [
 
 export default function ServicesTeaser() {
   return (
-    <section id="services" className="py-24 md:py-32 bg-sand">
+    <section id="services" className="py-24 md:py-40 lg:py-48 bg-sand">
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <Reveal>
           <Eyebrow>Services</Eyebrow>

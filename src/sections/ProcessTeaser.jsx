@@ -5,7 +5,7 @@ import Reveal from '../components/Reveal'
 
 export default function ProcessTeaser() {
   return (
-    <section id="process" className="py-24 md:py-32 bg-sand">
+    <section id="process" className="py-24 md:py-40 lg:py-48 bg-sand">
       <div className="mx-auto max-w-xl px-6 sm:px-10 text-center">
         <Reveal>
           <Eyebrow>The Process</Eyebrow>

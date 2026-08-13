@@ -4,7 +4,7 @@ import portraitImage from '../assets/images/evelyn-portrait-close.jpg'
 
 export default function AboutTeaser() {
   return (
-    <section id="about" className="py-24 md:py-32">
+    <section id="about" className="py-24 md:py-40 lg:py-48">
       <div className="mx-auto max-w-6xl px-6 sm:px-10 grid md:grid-cols-2 gap-12 md:gap-20 items-center">
         <Reveal>
           <img

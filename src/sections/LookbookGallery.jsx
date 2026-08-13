@@ -37,7 +37,7 @@ const LOOKBOOK_IMAGES = [
 
 export default function LookbookGallery() {
   return (
-    <section className="py-24 md:py-32">
+    <section className="py-24 md:py-40 lg:py-48">
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <Reveal>
           <Eyebrow>The Lookbook</Eyebrow>
