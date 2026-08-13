@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 // "to" items are react-router Links — needed for anything that isn't
-// on the current page (About is its own route; Home/Services/Process
-// only exist as sections on Home, so linking to them from the About
-// page has to navigate there first). useScrollToHash (in App.jsx)
-// handles the actual scroll once the target section is on-page.
-// Contact is the one plain anchor: every page renders its own Footer
-// with id="contact", so it should always target the CURRENT page's
-// footer, not force a trip back to Home's.
+// on the current page (About and Process are their own routes; Home
+// and Services only exist as sections on Home, so linking to them
+// from elsewhere has to navigate there first). useScrollToHash (in
+// App.jsx) handles the actual scroll once the target section is
+// on-page. Contact is the one plain anchor: every page renders its
+// own Footer with id="contact", so it should always target the
+// CURRENT page's footer, not force a trip back to Home's.
 const NAV_LINKS = [
   { label: 'Home', to: '/#home' },
   { label: 'About', to: '/about' },
   { label: 'Services', to: '/#services' },
-  { label: 'Process', to: '/#process' },
+  { label: 'Process', to: '/process' },
   { label: 'Contact', href: '#contact' },
 ]
 
