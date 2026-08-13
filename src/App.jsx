@@ -1,23 +1,15 @@
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Hero from './sections/Hero'
-import AboutTeaser from './sections/AboutTeaser'
-import ServicesTeaser from './sections/ServicesTeaser'
-import LookbookGallery from './sections/LookbookGallery'
-import ProcessTeaser from './sections/ProcessTeaser'
+import { Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import About from './pages/About'
+import useScrollToHash from './hooks/useScrollToHash'
 
 export default function App() {
+  useScrollToHash()
+
   return (
-    <div className="bg-sand">
-      <Header />
-      <main>
-        <Hero />
-        <AboutTeaser />
-        <ServicesTeaser />
-        <LookbookGallery />
-        <ProcessTeaser />
-      </main>
-      <Footer />
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+    </Routes>
   )
 }
