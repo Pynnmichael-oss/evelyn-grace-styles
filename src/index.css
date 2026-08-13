@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-sand text-espresso font-sans antialiased;
+  }
+
+  /* Visible focus states everywhere, replacing the browser default. */
+  :focus {
+    outline: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid #a8623f; /* terracotta-deep */
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  /* Shared eyebrow / nav / CTA caption treatment. */
+  .caption-label {
+    @apply font-sans font-medium uppercase tracking-[0.1em];
+  }
+}
