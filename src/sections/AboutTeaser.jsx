@@ -1,15 +1,16 @@
 import Eyebrow from '../components/Eyebrow'
-import ImagePlaceholder from '../components/ImagePlaceholder'
 import Reveal from '../components/Reveal'
+import portraitImage from '../assets/images/evelyn-portrait-close.jpg'
 
 export default function AboutTeaser() {
   return (
     <section id="about" className="py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-6 sm:px-10 grid md:grid-cols-2 gap-12 md:gap-20 items-center">
         <Reveal>
-          <ImagePlaceholder
-            alt="Black and white portrait of Evelyn Allen smiling, seated"
-            className="w-full aspect-[4/5]"
+          <img
+            src={portraitImage}
+            alt="Color portrait of Evelyn, a smiling blonde woman in a black long-sleeve top, seated and looking back over her shoulder"
+            className="w-full aspect-[4/5] object-cover"
           />
         </Reveal>
 

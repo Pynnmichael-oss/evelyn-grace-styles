@@ -1,31 +1,36 @@
 import Eyebrow from '../components/Eyebrow'
 import MasonryGrid, { MasonryItem } from '../components/MasonryGrid'
-import ImagePlaceholder from '../components/ImagePlaceholder'
 import Reveal from '../components/Reveal'
+import blackDressFull from '../assets/images/black-dress-silver-bag-full.jpg'
+import denimSkirtVestFull from '../assets/images/denim-skirt-vest-full.jpg'
+import silverBagDetailBw from '../assets/images/silver-bag-detail-bw.jpg'
+import denimSkirtVestCrop from '../assets/images/denim-skirt-vest-crop.jpg'
+import blackDressCrop from '../assets/images/black-dress-silver-bag-crop.jpg'
 
 const LOOKBOOK_IMAGES = [
   {
-    alt: 'Full-length outfit shot, tailored camel coat over a cream knit and trousers, studio light',
+    src: blackDressFull,
+    alt: 'Full-length shot of a model in a black sleeveless V-neck midi dress, holding a silver beaded bucket bag, wearing black mesh flats',
     span: 'sm:col-span-2 sm:row-span-2',
   },
   {
-    alt: 'Close-up of layered gold jewelry and a silk scarf detail',
-    span: 'sm:col-span-1 sm:row-span-1',
-  },
-  {
-    alt: 'Editorial shot, model in a black tailored blazer leaning against a stone wall',
+    src: denimSkirtVestFull,
+    alt: 'Full-length shot of a model in a black button-front halter vest and a blue denim A-line midi skirt, carrying a black leather shoulder bag, with black crossover sandals',
     span: 'sm:col-span-1 sm:row-span-2',
   },
   {
-    alt: 'Flat lay of a curated capsule wardrobe, neutral tones, folded on linen',
+    src: silverBagDetailBw,
+    alt: 'Black-and-white close-up of a silver chainmail shoulder bag against bare skin, hand resting on the strap',
     span: 'sm:col-span-1 sm:row-span-1',
   },
   {
-    alt: 'Model walking outdoors in a linen midi dress and woven sandals',
+    src: denimSkirtVestCrop,
+    alt: 'Waist-up crop of the black halter vest and blue denim A-line skirt, bag carried on the shoulder',
     span: 'sm:col-span-2 sm:row-span-1',
   },
   {
-    alt: 'Close-up of a hand adjusting a leather belt over wide-leg trousers',
+    src: blackDressCrop,
+    alt: 'Waist-up crop of the black V-neck dress, hands clasped in front holding the silver chain-strap bag',
     span: 'sm:col-span-1 sm:row-span-1',
   },
 ]
@@ -42,7 +47,11 @@ export default function LookbookGallery() {
           <MasonryGrid className="mt-4">
             {LOOKBOOK_IMAGES.map((image) => (
               <MasonryItem key={image.alt} span={image.span}>
-                <ImagePlaceholder alt={image.alt} className="w-full h-full" />
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-full object-cover"
+                />
               </MasonryItem>
             ))}
           </MasonryGrid>
