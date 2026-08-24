@@ -4,6 +4,11 @@ import Footer from '../components/Footer'
 import MastheadHeader from '../components/MastheadHeader'
 import Button from '../components/Button'
 import Reveal from '../components/Reveal'
+// TODO: swap for final photography. Imported rather than referenced as
+// a raw "/about-portrait.jpg" string — the site builds with
+// base: '/evelyn-grace-styles/' for GitHub Pages, and a hardcoded
+// root-absolute path silently 404s under that subpath.
+import aboutPortrait from '../assets/images/about-portrait.jpg'
 
 // Same value as Home's Hero — one shared line site-wide for brand
 // consistency. A single prop, trivial to diverge later if a
@@ -28,9 +33,8 @@ export default function About() {
         <MastheadHeader tagline={TAGLINE} />
 
         <Reveal className="mx-auto max-w-sm px-6 sm:px-10 mt-16 mb-16 md:mt-24 md:mb-24">
-          {/* TODO: swap placeholder path for final photography */}
           <img
-            src="/about-portrait.jpg"
+            src={aboutPortrait}
             // TODO: replace with real descriptive alt text once the final photo is in
             alt="TODO: portrait of Evelyn — final alt text pending"
             className="w-full aspect-[4/5] object-cover"

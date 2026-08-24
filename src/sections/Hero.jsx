@@ -1,6 +1,14 @@
 import { Link } from 'react-router-dom'
 import MastheadHeader from '../components/MastheadHeader'
 import Reveal from '../components/Reveal'
+// TODO: swap these placeholder images for final photography. Imported
+// (not referenced as a raw "/hero-photo-1.jpg" string) so Vite resolves
+// them through its asset pipeline — the site is built with
+// base: '/evelyn-grace-styles/' for GitHub Pages, and a hardcoded
+// root-absolute path silently 404s under that subpath in both dev and
+// production.
+import heroPhoto1 from '../assets/images/hero-photo-1.jpg'
+import heroPhoto2 from '../assets/images/hero-photo-2.jpg'
 
 /**
  * Two full-bleed photos bookending a MastheadHeader, then centered intro
@@ -15,9 +23,8 @@ import Reveal from '../components/Reveal'
 export default function Hero() {
   return (
     <section id="home">
-      {/* TODO: swap placeholder path for final photography */}
       <img
-        src="/hero-photo-1.jpg"
+        src={heroPhoto1}
         // TODO: replace with real descriptive alt text once the final photo is in
         alt="TODO: hero photo 1 — final alt text pending"
         className="w-full h-[75vh] md:h-screen object-cover"
@@ -25,9 +32,8 @@ export default function Hero() {
 
       <MastheadHeader tagline="A considered approach to personal style that is versatile, enduring, and uniquely you." />
 
-      {/* TODO: swap placeholder path for final photography */}
       <img
-        src="/hero-photo-2.jpg"
+        src={heroPhoto2}
         // TODO: replace with real descriptive alt text once the final photo is in
         alt="TODO: hero photo 2 — final alt text pending"
         className="w-full h-[75vh] md:h-screen object-cover -scale-x-100"

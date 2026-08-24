@@ -4,7 +4,7 @@ import Hero from '../sections/Hero'
 import AboutTeaser from '../sections/AboutTeaser'
 import ServicesTeaser from '../sections/ServicesTeaser'
 import LookbookGallery from '../sections/LookbookGallery'
-import ProcessTeaser from '../sections/ProcessTeaser'
+import FinalCta from '../sections/FinalCta'
 
 export default function Home() {
   return (
@@ -15,7 +15,7 @@ export default function Home() {
         <AboutTeaser />
         <ServicesTeaser />
         <LookbookGallery />
-        <ProcessTeaser />
+        <FinalCta />
       </main>
       <Footer />
     </div>

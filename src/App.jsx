@@ -4,7 +4,6 @@ import About from './pages/About'
 import Experience from './pages/Experience'
 import Services from './pages/Services'
 import Shop from './pages/Shop'
-import Process from './pages/Process'
 import Contact from './pages/Contact'
 import useScrollToHash from './hooks/useScrollToHash'
 
@@ -18,7 +17,6 @@ export default function App() {
       <Route path="/experience" element={<Experience />} />
       <Route path="/services" element={<Services />} />
       <Route path="/shop" element={<Shop />} />
-      <Route path="/process" element={<Process />} />
       <Route path="/contact" element={<Contact />} />
     </Routes>
   )

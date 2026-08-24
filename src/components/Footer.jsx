@@ -1,9 +1,16 @@
+import { Link } from 'react-router-dom'
 import Button from './Button'
 
 /**
  * Mirrors the header bar layout (wordmark left / location right),
  * plus a contact line, one CTA repeat, and a copyright line. Same
  * generous section padding as the rest of the page — not compressed.
+ *
+ * The CTA matches the one canonical button used everywhere else on the
+ * site (About, Experience, Services) — it used to read "Start the
+ * Process" / "#process", but that anchor only ever existed on Home's
+ * now-removed ProcessTeaser section, so it was a dead link on every
+ * other page. Booking now always routes to the real Services page.
  */
 export default function Footer() {
   return (
@@ -31,8 +38,8 @@ export default function Footer() {
             </a>
           </div>
 
-          <Button as="a" href="#process">
-            Start the Process
+          <Button as={Link} to="/services#consultation">
+            Book Your Complimentary Consultation
           </Button>
         </div>
 
