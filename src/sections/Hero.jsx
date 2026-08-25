@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom'
-import MastheadHeader from '../components/MastheadHeader'
-import Reveal from '../components/Reveal'
+import InlineNavStrip from '../components/InlineNavStrip'
 // Imported (not referenced as a raw "/hero-photo-1.jpg" string) so Vite
 // resolves them through its asset pipeline — the site is built with
 // base: '/evelyn-grace-styles/' for GitHub Pages, and a hardcoded
@@ -40,10 +38,11 @@ const rotatedFillImageClassName =
   'absolute top-1/2 left-1/2 h-[calc(100vw+32px)] w-[75vh] md:w-[100vh] max-w-none max-h-none -translate-x-1/2 -translate-y-1/2 rotate-90 object-cover'
 
 /**
- * Two full-bleed, rotated photos bookending a MastheadHeader, then
- * centered intro copy below. Both images sit flush at the top/edges of
- * the page — the fixed Header is transparent until scrolled (see
- * Header.jsx), so it floats over image 1 rather than pushing it down.
+ * Home's entire page body: two full-bleed, rotated photos bookending
+ * InlineNavStrip. Nothing else — no intro copy, no CTA, no persistent
+ * Header (Home suppresses it entirely; see Home.jsx and
+ * InlineNavStrip.jsx, which carries all of Home's navigation instead).
+ * Both images sit flush at the top/bottom edges of the page.
  */
 export default function Hero() {
   return (
@@ -56,7 +55,7 @@ export default function Hero() {
         />
       </div>
 
-      <MastheadHeader tagline="A considered approach to personal style that is versatile, enduring, and uniquely you." />
+      <InlineNavStrip />
 
       <div className="relative w-full h-[75vh] md:h-screen overflow-hidden">
         {/* Already black-and-white in the source file — no grayscale
@@ -66,33 +65,6 @@ export default function Hero() {
           alt="Close-up of a woven metallic bag worn on the shoulder, styled with a black dress"
           className={rotatedFillImageClassName}
         />
-      </div>
-
-      <div className="py-24 md:py-40 lg:py-48 px-6 sm:px-10">
-        <Reveal className="max-w-2xl mx-auto text-center">
-          <p className="font-sans text-espresso text-lg leading-relaxed mb-8">
-            Thoughtful styling for women who want to feel confident,
-            polished, and completely themselves in what they wear.
-          </p>
-          <p className="font-sans text-espresso text-lg leading-relaxed mb-8">
-            I believe getting dressed should feel effortless — not because
-            you have more clothes, but because you have the right pieces,
-            know how to wear them, and understand what truly feels like
-            you.
-          </p>
-          <p className="font-sans text-espresso text-lg leading-relaxed mb-10">
-            Whether we&rsquo;re working with pieces already in your
-            wardrobe or thoughtfully introducing something new, every
-            recommendation is personal, intentional, and designed around
-            the way you actually live.
-          </p>
-          <Link
-            to="/about"
-            className="font-sans text-espresso hover:text-terracotta underline decoration-transparent hover:decoration-terracotta underline-offset-4 transition-colors duration-200 ease-out"
-          >
-            Learn More →
-          </Link>
-        </Reveal>
       </div>
     </section>
   )
