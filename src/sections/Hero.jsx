@@ -68,7 +68,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="py-24 md:py-40 px-6 sm:px-10">
+      <div className="py-24 md:py-40 lg:py-48 px-6 sm:px-10">
         <Reveal className="max-w-2xl mx-auto text-center">
           <p className="font-sans text-espresso text-lg leading-relaxed mb-8">
             Thoughtful styling for women who want to feel confident,
