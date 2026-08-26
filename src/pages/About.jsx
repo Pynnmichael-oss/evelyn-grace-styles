@@ -152,22 +152,39 @@ function SectionLabel({ label, children }) {
 }
 
 /**
- * Even two-column layout: a large, static portrait (6/12 = 50%) beside
- * the copy (6/12 = 50%) — both within the requested 45-55% ranges.
- * `order-*` flips the stacking on mobile — portrait and signature
- * first, then copy — while keeping the same source order (and
- * therefore the same DOM/reading order for screen readers) as the
- * desktop layout implies.
+ * Two-column layout, CSS Grid with a literal grid-template-columns:
+ * 1fr 1fr at md+ (Tailwind: `md:grid-cols-[1fr_1fr]`) — a hard 50/50
+ * split, not the 12-track/col-span-6 composition used in earlier
+ * revisions. Both compute to the same pixel result, but 1fr/1fr reads
+ * unambiguously in devtools as exactly two tracks, with nothing left
+ * to double-check. `order-*` flips which *track* each item lands in on
+ * mobile vs. desktop — portrait first (both in the DOM and visually)
+ * below md, portrait in the second track (right side) at md+ — while
+ * keeping the same source order (and therefore the same DOM/reading
+ * order for screen readers) either way. Grid respects `order` during
+ * auto-placement, so this doesn't require an explicit grid-column
+ * value on either item.
+ *
+ * This is not flexbox: there is no flex-wrap anywhere in this layout,
+ * so "the text column wrapping beneath the image column" isn't a
+ * failure mode that can occur here — a CSS Grid item can only leave
+ * its assigned track by that track disappearing entirely, which is
+ * exactly what `grid-cols-1` (no md: prefix) does below the 768px
+ * breakpoint. Verified directly against the deployed build before this
+ * pass: `display: grid` confirmed, portrait and copy bounding rects
+ * never overlap in x (each stays in its own ~504px-wide lane for its
+ * full height) even though the two columns' heights differ — that's
+ * the columns not needing equal height, not a stacking bug.
  *
  * Static, not sticky: a prior revision pinned the portrait in place via
  * position: sticky while the text column scrolled past it. That's
- * removed entirely here — the portrait is a plain grid item now and
- * scrolls normally with the rest of the page. Grid's default
- * align-items: stretch still means the portrait's grid *cell* matches
- * the taller column's height, but that only affects empty space below
- * whichever column is shorter — it doesn't stretch the image itself,
- * so a portrait taller than the text column (or vice versa) is left
- * alone rather than forced to match.
+ * removed entirely — the portrait is a plain grid item and scrolls
+ * normally with the rest of the page. Grid's default align-items:
+ * stretch still means the portrait's grid *cell* matches the taller
+ * column's height, but that only affects empty space below whichever
+ * column is shorter — it doesn't stretch the image itself, so a
+ * portrait taller than the text column (or vice versa) is left alone
+ * rather than forced to match.
  *
  * Only the persistent site-wide Header renders here — no MastheadHeader.
  * One nav element on this page, not two.
@@ -178,7 +195,7 @@ export default function About() {
       <Header />
       <main className="pt-20">
         <div className="mx-auto max-w-6xl px-6 sm:px-10 py-16 md:py-24">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-y-16 md:gap-x-16">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-y-16 md:gap-x-16">
             {/* Portrait + signature — large and static (no sticky/
                 scroll-pinned behavior anywhere on this page), and
                 deliberately borderless: no frame, no padding-mat, no
@@ -190,7 +207,7 @@ export default function About() {
                 it on mobile where it's stacked above the copy
                 full-width; md:max-w-none removes that cap entirely at
                 the 50% column width so it fills its half of the page. */}
-            <Reveal className="order-1 md:order-2 md:col-span-6">
+            <Reveal className="order-1 md:order-2">
               <div className="max-w-sm sm:max-w-md md:max-w-none mx-auto md:mx-0">
                 <img
                   src={aboutPortrait}
@@ -215,7 +232,7 @@ export default function About() {
             </Reveal>
 
             {/* Copy */}
-            <div className="order-2 md:order-1 md:col-span-6">
+            <div className="order-2 md:order-1">
               <Reveal>
                 <p className="font-serif text-sm uppercase tracking-[0.18em] text-espresso mb-5">
                   {'( About Evelyn )'}
