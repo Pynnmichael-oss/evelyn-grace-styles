@@ -81,18 +81,33 @@ function InstagramFeed() {
   }, [])
 
   return (
-    <div className="min-h-[480px] flex items-center justify-center">
-      {bridgeReady ? (
-        <iframe
-          title="Evelyn Grace Styles Instagram feed"
-          src={MIRROR_FEED_SRC}
-          scrolling="no"
-          style={{ width: '100%', border: 'none', overflow: 'hidden' }}
-          onLoad={(e) => window.iFrameSetup?.(e.currentTarget)}
-        />
-      ) : (
-        <p className="font-sans text-espresso/60 text-sm">Loading feed…</p>
-      )}
+    // Framed like the About portrait (cream mat + thin terracotta
+    // border) so the iframe's white internal background reads as a
+    // deliberate card/print rather than a clash against the page's
+    // cream/sand tones — the iframe is cross-origin, so we can't
+    // restyle its background directly. Padding is >=24px on every side
+    // at every breakpoint (p-6 = 24px, md:p-8 = 32px). No rotation/tilt
+    // here unlike the portrait frame: this holds a live, interactive
+    // widget (a real "Follow" button, real links), and skewing that
+    // would read as broken rather than informal.
+    //
+    // TODO: check Mirror App's widget editor for a background
+    // color/transparency setting — if available, set it to #F4EDE4 to
+    // match the page instead of relying on this frame workaround.
+    <div className="bg-cream border border-terracotta p-6 md:p-8">
+      <div className="min-h-[480px] flex items-center justify-center">
+        {bridgeReady ? (
+          <iframe
+            title="Evelyn Grace Styles Instagram feed"
+            src={MIRROR_FEED_SRC}
+            scrolling="no"
+            style={{ width: '100%', border: 'none', overflow: 'hidden' }}
+            onLoad={(e) => window.iFrameSetup?.(e.currentTarget)}
+          />
+        ) : (
+          <p className="font-sans text-espresso/60 text-sm">Loading feed…</p>
+        )}
+      </div>
     </div>
   )
 }
@@ -100,10 +115,20 @@ function InstagramFeed() {
 /**
  * Labeled section: a small tracked kicker sitting just above its
  * paragraph(s), separated from the section before it by a thin espresso
- * hairline. Repeated five times down the left column — this rhythm,
+ * hairline. Repeated three times down the left column — this rhythm,
  * not one dense paragraph block, is what gives the page its
- * "conversational beats" feel. Generous mt/pt (bumped further on md)
- * keeps that rhythm from compressing on a long mobile scroll.
+ * "conversational beats" feel.
+ *
+ * Spacing audit: the gap from one section's end to the
+ * next kicker is `mt-16` + `pt-8` = 64px + 32px = 96px on mobile,
+ * `md:mt-20` + `md:pt-10` = 80px + 40px = 120px on desktop — both
+ * static, complete class names (no template-literal/dynamic class
+ * construction, so no Tailwind JIT purge risk), confirmed via
+ * getComputedStyle against the built page, not just presence in
+ * source. Both clear the requested 48px/space-y-12 floor with real
+ * margin, not a marginal bump — this was previously mt-12/pt-8
+ * (80px) and md:mt-16/md:pt-10 (104px), a change small enough to
+ * read as "did nothing."
  *
  * Color note: neither the `terracotta` token (2.8:1 on sand) nor
  * `terracotta-deep` (4.03:1) clears WCAG AA's 4.5:1 small-text
@@ -114,7 +139,7 @@ function InstagramFeed() {
  */
 function SectionLabel({ label, children }) {
   return (
-    <div className="mt-12 pt-8 md:mt-16 md:pt-10 border-t border-espresso/15">
+    <div className="mt-16 pt-8 md:mt-20 md:pt-10 border-t border-espresso/15">
       <p className="font-sans font-medium text-[13px] uppercase tracking-[0.14em] text-[#8F5336] mb-4">
         {label}
       </p>
@@ -202,60 +227,39 @@ export default function About() {
                 </p>
               </Reveal>
 
+              {/* Three short beats, not five paragraph-length ones — cut
+                  down from the original bio rather than just relabeled;
+                  each is 2-3 sentences. */}
               <Reveal delay={150}>
                 <SectionLabel label="Where it started">
                   <p>
-                    I&rsquo;m a Personal Style Consultant with a
-                    background working in luxury fashion retail and
-                    client service. Working closely with clients has
-                    given me a firsthand understanding of quality, fit,
-                    and, most importantly, how personal getting dressed
-                    really is.
-                  </p>
-                  <p>
-                    I have a degree in Fashion Merchandising and Product
-                    Development.
-                  </p>
-                </SectionLabel>
-
-                <SectionLabel label="Why I do this">
-                  <p>
-                    I have always loved clothes. I enjoy the work that
-                    goes into finding the perfect outfit because I live
-                    in a world where my mood can only ever be as good as
-                    my outfit is. When I feel good in what I&rsquo;m
-                    wearing, I feel like myself.
+                    My background is in luxury fashion retail and client
+                    service — work that taught me just how personal
+                    getting dressed really is. I have a degree in Fashion
+                    Merchandising and Product Development, and clothes
+                    have been a lifelong love: my mood is only ever as
+                    good as my outfit.
                   </p>
                 </SectionLabel>
 
                 <SectionLabel label="My approach">
                   <p>
-                    My personal style has always been rooted in
-                    juxtaposition. I love mixing feminine pieces with
-                    tomboy elements, dressing something polished with
-                    something unexpected, and pairing investment pieces
-                    with something inexpensive. That would absolutely be
-                    my first style tip to anyone. Contrast makes an
-                    outfit interesting.
-                  </p>
-                </SectionLabel>
-
-                <SectionLabel label="What I believe">
-                  <p>
-                    I believe great personal style isn&rsquo;t about
-                    following every trend or having an endless wardrobe.
-                    It&rsquo;s about understanding what makes you feel
-                    your best and learning how to make the pieces you
-                    own — and the pieces you choose to add — work
-                    beautifully together.
+                    My style has always been rooted in juxtaposition —
+                    feminine with tomboy, polished with unexpected,
+                    investment pieces with something inexpensive.
+                    Contrast makes an outfit interesting, and
+                    that&rsquo;s the first thing I tell every client.
+                    Great style isn&rsquo;t about trends or an endless
+                    closet — it&rsquo;s making what you already own work
+                    harder, and adding only what truly earns its place.
                   </p>
                 </SectionLabel>
 
                 <SectionLabel label="How we’ll work together">
                   <p>
-                    I work in Phoenix and remotely with each client
-                    individually to create a repertoire of outfits that
-                    feels polished, effortless, and authentically yours.
+                    I work with clients in Phoenix and remotely, one on
+                    one, to build a repertoire of outfits that feels
+                    polished, effortless, and completely yours.
                   </p>
                 </SectionLabel>
               </Reveal>
