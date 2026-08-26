@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -15,6 +16,86 @@ import Reveal from '../components/Reveal'
 // 144830 retains a faint color cast (a yellow-green tint bleeding
 // through from nail polish), so it's the correct pick on both counts.
 import aboutPortrait from '../assets/images/about-portrait.jpg'
+
+// Mirror App Instagram feed embed for "Follow the Journey". Evelyn's
+// account: https://www.instagram.com/evelyn123allen/
+const MIRROR_BRIDGE_SRC =
+  'https://cdn.jsdelivr.net/npm/@mirrorapp/iframe-bridge@latest/dist/index.umd.js'
+const MIRROR_FEED_SRC =
+  'https://app.mirror-app.com/feed-instagram/444f6370-e2f3-45ff-80ec-ad8ca1a4d69e/preview'
+
+/**
+ * Instagram feed embed via Mirror App. The tricky part is sequencing:
+ * the raw snippet is `<iframe onload="iFrameSetup(this)">` next to a
+ * `<script src=".../iframe-bridge@latest/...">` that defines
+ * `iFrameSetup` on `window` — loaded as plain HTML, the browser
+ * guarantees the script runs before a later element's onload can fire,
+ * but React doesn't execute `<script>` tags it renders (JSX or
+ * dangerouslySetInnerHTML), so that ordering has to be rebuilt by hand.
+ *
+ * This loads the bridge script itself via a manually-created <script>
+ * appended to <head> (async, so it never blocks initial page render —
+ * see the earlier performance note) and only renders the <iframe> once
+ * that script's own `load` event has fired. That makes the race
+ * impossible by construction: `iFrameSetup` is guaranteed to exist
+ * before the iframe can mount, so before it can ever fire its onLoad.
+ * A `cancelled` flag guards against setting state after unmount, and a
+ * `document.querySelector` check avoids double-inserting the script tag
+ * under StrictMode's dev-only double effect invocation.
+ *
+ * The snippet ships with no fixed iframe height — Mirror's bridge script
+ * is expected to auto-resize it via a postMessage handshake once
+ * mounted. min-h-[480px] on the wrapper is only a fallback for the
+ * window between "script loaded" and "bridge has actually resized the
+ * iframe" (or a graceful floor if the resize never happens), not a
+ * replacement for the real dynamic height.
+ */
+function InstagramFeed() {
+  const [bridgeReady, setBridgeReady] = useState(false)
+
+  useEffect(() => {
+    let cancelled = false
+    const markReady = () => {
+      if (!cancelled) setBridgeReady(true)
+    }
+
+    const existing = document.querySelector(`script[src="${MIRROR_BRIDGE_SRC}"]`)
+    if (existing) {
+      // Already loaded (or loading) — e.g. a fast StrictMode re-run.
+      if (window.iFrameSetup) {
+        markReady()
+      } else {
+        existing.addEventListener('load', markReady, { once: true })
+      }
+    } else {
+      const script = document.createElement('script')
+      script.src = MIRROR_BRIDGE_SRC
+      script.async = true
+      script.onload = markReady
+      document.head.appendChild(script)
+    }
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  return (
+    <div className="min-h-[480px] flex items-center justify-center">
+      {bridgeReady ? (
+        <iframe
+          title="Evelyn Grace Styles Instagram feed"
+          src={MIRROR_FEED_SRC}
+          scrolling="no"
+          style={{ width: '100%', border: 'none', overflow: 'hidden' }}
+          onLoad={(e) => window.iFrameSetup?.(e.currentTarget)}
+        />
+      ) : (
+        <p className="font-sans text-espresso/60 text-sm">Loading feed…</p>
+      )}
+    </div>
+  )
+}
 
 /**
  * Labeled section: a small tracked kicker sitting just above its
@@ -187,6 +268,31 @@ export default function About() {
             <Button as={Link} to="/services#consultation">
               Book Your Complimentary Consultation
             </Button>
+          </Reveal>
+
+          {/* Follow the Journey — Instagram feed. A taupe hairline (the
+              same weight Footer uses to open its own section) marks this
+              as a new page section, distinct from the finer espresso
+              hairlines separating the labeled bio beats above. Sits below
+              the CTA with its own top margin so the feed's async render
+              can never shift the CTA's position. */}
+          <Reveal delay={250} className="mt-24 md:mt-32 pt-16 md:pt-20 border-t border-taupe/30 text-center">
+            <h2 className="font-serif text-sm uppercase tracking-[0.18em] text-espresso mb-10">
+              {'( Follow the Journey )'}
+            </h2>
+
+            <div className="max-w-2xl mx-auto">
+              <InstagramFeed />
+            </div>
+
+            <a
+              href="https://www.instagram.com/evelyn123allen/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-block font-sans text-espresso hover:text-terracotta underline decoration-transparent hover:decoration-terracotta underline-offset-4 transition-colors duration-200 ease-out"
+            >
+              @evelyn123allen on Instagram
+            </a>
           </Reveal>
         </div>
       </main>
