@@ -4,10 +4,9 @@ import Footer from '../components/Footer'
 import MastheadHeader from '../components/MastheadHeader'
 import Button from '../components/Button'
 import Reveal from '../components/Reveal'
-// TODO: swap for final photography. Imported rather than referenced as
-// a raw "/about-portrait.jpg" string — the site builds with
-// base: '/evelyn-grace-styles/' for GitHub Pages, and a hardcoded
-// root-absolute path silently 404s under that subpath.
+// Imported rather than referenced as a raw "/about-portrait.jpg" string —
+// the site builds with base: '/evelyn-grace-styles/' for GitHub Pages,
+// and a hardcoded root-absolute path silently 404s under that subpath.
 import aboutPortrait from '../assets/images/about-portrait.jpg'
 
 // Same value as Home's Hero — one shared line site-wide for brand
@@ -18,12 +17,18 @@ const TAGLINE =
 
 /**
  * Copy-led page: MastheadHeader, then a moderate (not full-bleed) portrait
- * so the photo anchors the page rather than dominating it, then the bio
- * in a single centered column. pt-20 on <main> exists only to clear the
- * fixed Header's own height (h-20) — Header stays transparent until
- * scrolled, but its wordmark/nav text is always visible, so content
- * starting right at the top (unlike Home's full-bleed hero) needs that
- * exact offset to avoid colliding with it.
+ * so the photo anchors the page rather than dominating it, then two
+ * distinct copy blocks in a single centered column. pt-20 on <main>
+ * exists only to clear the fixed Header's own height (h-20) — Header
+ * stays transparent until scrolled, but its wordmark/nav text is always
+ * visible, so content starting right at the top (unlike Home's
+ * full-bleed hero) needs that exact offset to avoid colliding with it.
+ *
+ * The philosophy statement and the personal bio are deliberately two
+ * separate Reveal blocks in two different voices — direct-address vs.
+ * first-person narrative — separated by generous pb-24/md:pb-40 on the
+ * philosophy block so they read as distinct beats rather than running
+ * together into one dense block of copy.
  */
 export default function About() {
   return (
@@ -35,8 +40,7 @@ export default function About() {
         <Reveal className="mx-auto max-w-sm px-6 sm:px-10 mt-16 mb-16 md:mt-24 md:mb-24">
           <img
             src={aboutPortrait}
-            // TODO: replace with real descriptive alt text once the final photo is in
-            alt="TODO: portrait of Evelyn — final alt text pending"
+            alt="Black-and-white portrait of Evelyn, seated and glancing back over her shoulder mid-laugh, wearing a black sweater and skirt against a softly textured backdrop"
             className="w-full aspect-[4/5] object-cover"
           />
         </Reveal>
@@ -56,7 +60,32 @@ export default function About() {
             </h1>
           </Reveal>
 
-          <Reveal delay={100}>
+          {/* Philosophy statement — direct address to the client, distinct
+              from the first-person bio below it. pb-24/md:pb-40 is the
+              generous separator called for between the two voices; the
+              bio's own Reveal carries no matching top padding, so this is
+              the single source of that gap (avoids doubling it on mobile
+              where the two would otherwise stack). */}
+          <Reveal delay={100} className="text-center pb-24 md:pb-40">
+            <p className="font-sans text-espresso text-lg leading-relaxed mb-6 md:mb-8">
+              Thoughtful styling for women who want to feel confident,
+              polished, and completely themselves in what they wear.
+            </p>
+            <p className="font-sans text-espresso text-lg leading-relaxed mb-6 md:mb-8">
+              I believe getting dressed should feel effortless — not
+              because you have more clothes, but because you have the
+              right pieces, know how to wear them, and understand what
+              truly feels like you.
+            </p>
+            <p className="font-sans text-espresso text-lg leading-relaxed">
+              Whether we&rsquo;re working with pieces already in your
+              wardrobe or thoughtfully introducing something new, every
+              recommendation is personal, intentional, and designed
+              around the way you actually live.
+            </p>
+          </Reveal>
+
+          <Reveal delay={150}>
             <p className="font-sans text-espresso text-lg leading-relaxed mb-6 md:mb-8">
               I&rsquo;m a Personal Style Consultant with a background
               working in luxury fashion retail and client service. Working
