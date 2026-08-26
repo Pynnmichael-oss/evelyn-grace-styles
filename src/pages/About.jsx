@@ -86,16 +86,16 @@ function InstagramFeed() {
     // (bg-white, not the page's cream) — padding and iframe now read as
     // one continuous white surface with no seam between them. The
     // terracotta border is what separates this card from the page's
-    // cream background, not a color match to it. Padding is >=24px on
-    // every side at every breakpoint (p-6 = 24px, md:p-8 = 32px). No
-    // rotation/tilt here unlike the portrait frame: this holds a live,
-    // interactive widget (a real "Follow" button, real links), and
-    // skewing that would read as broken rather than informal.
+    // cream background, not a color match to it — and per this spec,
+    // this white card is now the ONE place on the page that keeps a
+    // border at all (the portrait's own frame was retired). Padding is
+    // 16px/24px (p-4/md:p-6), inside the spec'd 16-24px comfortable
+    // range at every breakpoint.
     //
     // TODO: check Mirror App's widget editor for a background
     // color/transparency setting — if available, set it to #FFFFFF (or
     // transparent) there directly instead of relying on this wrapper.
-    <div className="bg-white border border-terracotta p-6 md:p-8">
+    <div className="bg-white border border-terracotta p-4 md:p-6">
       <div className="min-h-[480px] flex items-center justify-center">
         {bridgeReady ? (
           <iframe
@@ -180,21 +180,23 @@ export default function About() {
         <div className="mx-auto max-w-6xl px-6 sm:px-10 py-16 md:py-24">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-y-16 md:gap-x-16">
             {/* Portrait + signature — large and static (no sticky/
-                scroll-pinned behavior anywhere on this page). max-w-sm
-                sm:max-w-md caps it on mobile where it's stacked above
-                the copy full-width; md:max-w-none removes that cap
-                entirely at the 50% column width so it fills its half of
-                the page — meant to read as a substantial photograph
-                anchoring the page, not a small inset. */}
+                scroll-pinned behavior anywhere on this page), and
+                deliberately borderless: no frame, no padding-mat, no
+                rotation, no shadow — sits clean directly against the
+                cream page background. (A prior revision framed it like
+                a mounted photo; this spec explicitly retires that
+                treatment — the Instagram card below is now the only
+                bordered element on the page.) max-w-sm sm:max-w-md caps
+                it on mobile where it's stacked above the copy
+                full-width; md:max-w-none removes that cap entirely at
+                the 50% column width so it fills its half of the page. */}
             <Reveal className="order-1 md:order-2 md:col-span-6">
               <div className="max-w-sm sm:max-w-md md:max-w-none mx-auto md:mx-0">
-                <div className="inline-block bg-cream border border-terracotta p-3 sm:p-4 -rotate-1 shadow-md">
-                  <img
-                    src={aboutPortrait}
-                    alt="Black-and-white portrait of Evelyn, seated and glancing back over her shoulder mid-laugh, wearing a black sweater and skirt against a softly textured backdrop"
-                    className="w-full aspect-[4/5] object-cover"
-                  />
-                </div>
+                <img
+                  src={aboutPortrait}
+                  alt="Black-and-white portrait of Evelyn, seated and glancing back over her shoulder mid-laugh, wearing a black sweater and skirt against a softly textured backdrop"
+                  className="w-full aspect-[4/5] object-cover"
+                />
 
                 {/* TODO: replace with Evelyn's actual handwritten "Evelyn
                     Grace" signature graphic once the client provides a
@@ -203,10 +205,10 @@ export default function About() {
                     template) and the rest of the repo/filesystem for one
                     — none exists yet. Per spec, this is deliberately set
                     in Fraunces italic rather than a script/cursive font
-                    standing in for a real signature. Sized up a step
-                    (text-4xl/5xl, was text-3xl/4xl) to stay proportional
-                    under the now much larger portrait. */}
-                <p className="mt-6 text-center font-serif italic text-4xl md:text-5xl text-espresso">
+                    standing in for a real signature. mt-8 (was mt-6) so
+                    it reads as clearly spaced from the now-borderless
+                    photo edge, not cramped against it. */}
+                <p className="mt-8 text-center font-serif italic text-4xl md:text-5xl text-espresso">
                   Evelyn Grace
                 </p>
               </div>
@@ -227,23 +229,13 @@ export default function About() {
                   between the headline and the labeled-section body copy
                   below it (text-2xl vs. the section body's text-xl) so
                   it reads as a lead-in with more weight than a regular
-                  paragraph, not just another beat. */}
+                  paragraph, not just another beat. This final spec cuts
+                  it to a single sentence — the previous two-paragraph
+                  extension is gone, not just relabeled. */}
               <Reveal delay={100}>
-                <p className="font-sans text-espresso text-2xl leading-relaxed mb-6 md:mb-8">
+                <p className="font-sans text-espresso text-2xl leading-relaxed">
                   Thoughtful styling for women who want to feel confident,
                   polished, and completely themselves in what they wear.
-                </p>
-                <p className="font-sans text-espresso text-2xl leading-relaxed mb-6 md:mb-8">
-                  I believe getting dressed should feel effortless — not
-                  because you have more clothes, but because you have the
-                  right pieces, know how to wear them, and understand
-                  what truly feels like you.
-                </p>
-                <p className="font-sans text-espresso text-2xl leading-relaxed">
-                  Whether we&rsquo;re working with pieces already in your
-                  wardrobe or thoughtfully introducing something new,
-                  every recommendation is personal, intentional, and
-                  designed around the way you actually live.
                 </p>
               </Reveal>
 
