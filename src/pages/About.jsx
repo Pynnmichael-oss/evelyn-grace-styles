@@ -81,20 +81,21 @@ function InstagramFeed() {
   }, [])
 
   return (
-    // Framed like the About portrait (cream mat + thin terracotta
-    // border) so the iframe's white internal background reads as a
-    // deliberate card/print rather than a clash against the page's
-    // cream/sand tones — the iframe is cross-origin, so we can't
-    // restyle its background directly. Padding is >=24px on every side
-    // at every breakpoint (p-6 = 24px, md:p-8 = 32px). No rotation/tilt
-    // here unlike the portrait frame: this holds a live, interactive
-    // widget (a real "Follow" button, real links), and skewing that
-    // would read as broken rather than informal.
+    // The iframe's internal background is pure white and can't be
+    // restyled from here (cross-origin), so the padding is white too
+    // (bg-white, not the page's cream) — padding and iframe now read as
+    // one continuous white surface with no seam between them. The
+    // terracotta border is what separates this card from the page's
+    // cream background, not a color match to it. Padding is >=24px on
+    // every side at every breakpoint (p-6 = 24px, md:p-8 = 32px). No
+    // rotation/tilt here unlike the portrait frame: this holds a live,
+    // interactive widget (a real "Follow" button, real links), and
+    // skewing that would read as broken rather than informal.
     //
     // TODO: check Mirror App's widget editor for a background
-    // color/transparency setting — if available, set it to #F4EDE4 to
-    // match the page instead of relying on this frame workaround.
-    <div className="bg-cream border border-terracotta p-6 md:p-8">
+    // color/transparency setting — if available, set it to #FFFFFF (or
+    // transparent) there directly instead of relying on this wrapper.
+    <div className="bg-white border border-terracotta p-6 md:p-8">
       <div className="min-h-[480px] flex items-center justify-center">
         {bridgeReady ? (
           <iframe
@@ -151,12 +152,22 @@ function SectionLabel({ label, children }) {
 }
 
 /**
- * Asymmetric two-column layout: left column (7/12 ≈ 58%) carries all the
- * copy, right column (5/12 ≈ 42%) carries the framed, slightly rotated
- * portrait with the signature centered beneath it. `order-*` flips the
- * stacking on mobile — portrait and signature first, then copy — while
- * keeping the same source order (and therefore the same DOM/reading
- * order for screen readers) as the desktop layout implies.
+ * Even two-column layout: a large, static portrait (6/12 = 50%) beside
+ * the copy (6/12 = 50%) — both within the requested 45-55% ranges.
+ * `order-*` flips the stacking on mobile — portrait and signature
+ * first, then copy — while keeping the same source order (and
+ * therefore the same DOM/reading order for screen readers) as the
+ * desktop layout implies.
+ *
+ * Static, not sticky: a prior revision pinned the portrait in place via
+ * position: sticky while the text column scrolled past it. That's
+ * removed entirely here — the portrait is a plain grid item now and
+ * scrolls normally with the rest of the page. Grid's default
+ * align-items: stretch still means the portrait's grid *cell* matches
+ * the taller column's height, but that only affects empty space below
+ * whichever column is shorter — it doesn't stretch the image itself,
+ * so a portrait taller than the text column (or vice versa) is left
+ * alone rather than forced to match.
  *
  * Only the persistent site-wide Header renders here — no MastheadHeader.
  * One nav element on this page, not two.
@@ -168,26 +179,15 @@ export default function About() {
       <main className="pt-20">
         <div className="mx-auto max-w-6xl px-6 sm:px-10 py-16 md:py-24">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-y-16 md:gap-x-16">
-            {/* Portrait + signature — sticky on desktop so it stays in
-                view while the (much longer) text column scrolls past.
-                The grid item is a plain, non-animated div so it can
-                stretch to the full row height (default grid
-                align-items: stretch) and act as the sticky containing
-                block; that stretch is what gives the sticky child room
-                to "travel" and is also what makes it release cleanly
-                the instant the text column ends, rather than pinning
-                for the rest of the page. Reveal — whose fade-in leaves
-                a permanent (if visually 0) `transform: translate(...)`
-                on its own div even at rest — is deliberately the sticky
-                element itself rather than an ancestor of one: a
-                transformed ancestor is a well-documented way to
-                silently break position: sticky on a descendant, so
-                sticky lives on the same node as the transform instead.
-                md:top-[104px] = Header's fixed 80px height + 24px
-                clearance, so the pinned portrait never sits underneath
-                the nav bar. */}
-            <div className="order-1 md:order-2 md:col-span-5">
-              <Reveal className="max-w-xs sm:max-w-sm md:max-w-none mx-auto md:mx-0 md:sticky md:top-[104px]">
+            {/* Portrait + signature — large and static (no sticky/
+                scroll-pinned behavior anywhere on this page). max-w-sm
+                sm:max-w-md caps it on mobile where it's stacked above
+                the copy full-width; md:max-w-none removes that cap
+                entirely at the 50% column width so it fills its half of
+                the page — meant to read as a substantial photograph
+                anchoring the page, not a small inset. */}
+            <Reveal className="order-1 md:order-2 md:col-span-6">
+              <div className="max-w-sm sm:max-w-md md:max-w-none mx-auto md:mx-0">
                 <div className="inline-block bg-cream border border-terracotta p-3 sm:p-4 -rotate-1 shadow-md">
                   <img
                     src={aboutPortrait}
@@ -203,15 +203,17 @@ export default function About() {
                     template) and the rest of the repo/filesystem for one
                     — none exists yet. Per spec, this is deliberately set
                     in Fraunces italic rather than a script/cursive font
-                    standing in for a real signature. */}
-                <p className="mt-6 text-center font-serif italic text-3xl md:text-4xl text-espresso">
+                    standing in for a real signature. Sized up a step
+                    (text-4xl/5xl, was text-3xl/4xl) to stay proportional
+                    under the now much larger portrait. */}
+                <p className="mt-6 text-center font-serif italic text-4xl md:text-5xl text-espresso">
                   Evelyn Grace
                 </p>
-              </Reveal>
-            </div>
+              </div>
+            </Reveal>
 
             {/* Copy */}
-            <div className="order-2 md:order-1 md:col-span-7">
+            <div className="order-2 md:order-1 md:col-span-6">
               <Reveal>
                 <p className="font-serif text-sm uppercase tracking-[0.18em] text-espresso mb-5">
                   {'( About Evelyn )'}
