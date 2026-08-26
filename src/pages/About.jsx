@@ -143,7 +143,7 @@ function SectionLabel({ label, children }) {
       <p className="font-sans font-medium text-[13px] uppercase tracking-[0.14em] text-[#8F5336] mb-4">
         {label}
       </p>
-      <div className="font-sans text-espresso text-lg leading-relaxed space-y-4">
+      <div className="font-sans text-espresso text-xl leading-loose space-y-4">
         {children}
       </div>
     </div>
@@ -168,9 +168,26 @@ export default function About() {
       <main className="pt-20">
         <div className="mx-auto max-w-6xl px-6 sm:px-10 py-16 md:py-24">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-y-16 md:gap-x-16">
-            {/* Portrait + signature */}
-            <Reveal className="order-1 md:order-2 md:col-span-5">
-              <div className="max-w-xs sm:max-w-sm md:max-w-none mx-auto md:mx-0">
+            {/* Portrait + signature — sticky on desktop so it stays in
+                view while the (much longer) text column scrolls past.
+                The grid item is a plain, non-animated div so it can
+                stretch to the full row height (default grid
+                align-items: stretch) and act as the sticky containing
+                block; that stretch is what gives the sticky child room
+                to "travel" and is also what makes it release cleanly
+                the instant the text column ends, rather than pinning
+                for the rest of the page. Reveal — whose fade-in leaves
+                a permanent (if visually 0) `transform: translate(...)`
+                on its own div even at rest — is deliberately the sticky
+                element itself rather than an ancestor of one: a
+                transformed ancestor is a well-documented way to
+                silently break position: sticky on a descendant, so
+                sticky lives on the same node as the transform instead.
+                md:top-[104px] = Header's fixed 80px height + 24px
+                clearance, so the pinned portrait never sits underneath
+                the nav bar. */}
+            <div className="order-1 md:order-2 md:col-span-5">
+              <Reveal className="max-w-xs sm:max-w-sm md:max-w-none mx-auto md:mx-0 md:sticky md:top-[104px]">
                 <div className="inline-block bg-cream border border-terracotta p-3 sm:p-4 -rotate-1 shadow-md">
                   <img
                     src={aboutPortrait}
@@ -190,8 +207,8 @@ export default function About() {
                 <p className="mt-6 text-center font-serif italic text-3xl md:text-4xl text-espresso">
                   Evelyn Grace
                 </p>
-              </div>
-            </Reveal>
+              </Reveal>
+            </div>
 
             {/* Copy */}
             <div className="order-2 md:order-1 md:col-span-7">
@@ -199,27 +216,28 @@ export default function About() {
                 <p className="font-serif text-sm uppercase tracking-[0.18em] text-espresso mb-5">
                   {'( About Evelyn )'}
                 </p>
-                <h1 className="font-serif font-light text-4xl md:text-5xl text-espresso mb-10">
+                <h1 className="font-serif font-light text-5xl md:text-7xl text-espresso mb-10">
                   Personal style, with intention.
                 </h1>
               </Reveal>
 
-              {/* Opening statement — the page's thesis, no label, set a
-                  step larger than standard body copy (text-xl vs the
-                  text-lg used everywhere below it) so it reads as a
-                  lead-in rather than another labeled beat. */}
+              {/* Opening statement — the page's thesis, no label, sized
+                  between the headline and the labeled-section body copy
+                  below it (text-2xl vs. the section body's text-xl) so
+                  it reads as a lead-in with more weight than a regular
+                  paragraph, not just another beat. */}
               <Reveal delay={100}>
-                <p className="font-sans text-espresso text-xl leading-relaxed mb-6 md:mb-8">
+                <p className="font-sans text-espresso text-2xl leading-relaxed mb-6 md:mb-8">
                   Thoughtful styling for women who want to feel confident,
                   polished, and completely themselves in what they wear.
                 </p>
-                <p className="font-sans text-espresso text-xl leading-relaxed mb-6 md:mb-8">
+                <p className="font-sans text-espresso text-2xl leading-relaxed mb-6 md:mb-8">
                   I believe getting dressed should feel effortless — not
                   because you have more clothes, but because you have the
                   right pieces, know how to wear them, and understand
                   what truly feels like you.
                 </p>
-                <p className="font-sans text-espresso text-xl leading-relaxed">
+                <p className="font-sans text-espresso text-2xl leading-relaxed">
                   Whether we&rsquo;re working with pieces already in your
                   wardrobe or thoughtfully introducing something new,
                   every recommendation is personal, intentional, and
