@@ -190,14 +190,18 @@ export default function About() {
         {/* BEAT 1 — headline + portrait */}
         <div className="mx-auto max-w-6xl px-6 sm:px-10 py-20 lg:py-32">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-y-16 md:gap-x-16 items-center">
-            {/* Portrait + signature — static (no sticky/scroll-pinned
-                behavior anywhere on this page), borderless: no frame,
-                no padding-mat, no rotation, no shadow — sits clean
-                directly against the page background. max-w-sm
-                sm:max-w-md caps it on mobile where it's stacked above
-                the copy full-width; md:max-w-none removes that cap
-                entirely at the 50% column width so it fills its half
-                of the page. */}
+            {/* Portrait only — no caption. The "Evelyn Grace" signature
+                line (and its own mt-8 top margin) that used to sit
+                beneath it is removed entirely per this pass, not just
+                hidden — this div now wraps nothing but the <img>, so
+                there's no leftover empty space where the caption was.
+                Static (no sticky/scroll-pinned behavior anywhere on
+                this page), borderless: no frame, no padding-mat, no
+                rotation, no shadow — sits clean directly against the
+                page background. max-w-sm sm:max-w-md caps it on mobile
+                where it's stacked above the copy full-width;
+                md:max-w-none removes that cap entirely at the 50%
+                column width so it fills its half of the page. */}
             <Reveal className="order-1 md:order-2">
               <div className="max-w-sm sm:max-w-md md:max-w-none mx-auto md:mx-0">
                 <img
@@ -205,18 +209,6 @@ export default function About() {
                   alt="Evelyn Grace, personal style consultant, seated black-and-white portrait"
                   className="w-full aspect-[4/5] object-cover"
                 />
-
-                {/* TODO: replace with Evelyn's actual handwritten "Evelyn
-                    Grace" signature graphic once the client provides a
-                    standalone image/SVG asset. Checked the project's
-                    uploaded reference mockups (the Home-page hero
-                    template) and the rest of the repo/filesystem for one
-                    — none exists yet. Per spec, this is deliberately set
-                    in Fraunces italic rather than a script/cursive font
-                    standing in for a real signature. */}
-                <p className="mt-8 text-center font-serif italic text-4xl md:text-5xl text-espresso">
-                  Evelyn Grace
-                </p>
               </div>
             </Reveal>
 
