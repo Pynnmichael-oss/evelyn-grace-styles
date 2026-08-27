@@ -114,77 +114,70 @@ function InstagramFeed() {
 }
 
 /**
- * Labeled section: a small tracked kicker sitting just above its
- * paragraph(s), separated from the section before it by a thin espresso
- * hairline. Repeated three times down the left column — this rhythm,
- * not one dense paragraph block, is what gives the page its
- * "conversational beats" feel.
+ * Beat 3's two-column labeled block: "( LABEL )" set in General Sans
+ * (not Fraunces — this deliberately combines the SITE's bracket
+ * convention with the previous SectionLabel's font/tracking/color
+ * treatment), with the hairline BENEATH the label rather than above
+ * it like the retired SectionLabel this replaces.
  *
- * Spacing audit: the gap from one section's end to the
- * next kicker is `mt-16` + `pt-8` = 64px + 32px = 96px on mobile,
- * `md:mt-20` + `md:pt-10` = 80px + 40px = 120px on desktop — both
- * static, complete class names (no template-literal/dynamic class
- * construction, so no Tailwind JIT purge risk), confirmed via
- * getComputedStyle against the built page, not just presence in
- * source. Both clear the requested 48px/space-y-12 floor with real
- * margin, not a marginal bump — this was previously mt-12/pt-8
- * (80px) and md:mt-16/md:pt-10 (104px), a change small enough to
- * read as "did nothing."
- *
- * Color note: neither the `terracotta` token (2.8:1 on sand) nor
+ * Color/size note: neither the `terracotta` token (2.8:1 on sand) nor
  * `terracotta-deep` (4.03:1) clears WCAG AA's 4.5:1 small-text
- * threshold — checked against sand #F4EDE4 — so the kicker uses a
- * one-off darker tint (#8F5336, ~5.2:1) scoped to this label only. The
- * locked `terracotta`/`terracotta-deep` tokens are untouched everywhere
- * else on the site.
+ * threshold — checked against sand #F4EDE4. This spec's own fallback
+ * ("if borderline, use terracotta-deep") doesn't hold: terracotta-deep
+ * isn't borderline, it fails outright, so switching to it would be a
+ * regression. Kept the same one-off darker tint (#8F5336, ~5.2:1)
+ * verified earlier. Bumped text-[13px] -> text-sm (14px) to satisfy
+ * this spec's explicit "at least 14px equivalent."
  */
-function SectionLabel({ label, children }) {
+function LabeledBlock({ label, children }) {
   return (
-    <div className="mt-16 pt-8 md:mt-20 md:pt-10 border-t border-espresso/15">
-      <p className="font-sans font-medium text-[13px] uppercase tracking-[0.14em] text-[#8F5336] mb-4">
+    <div>
+      <p className="font-sans font-medium text-sm uppercase tracking-[0.14em] text-[#8F5336] mb-5">
         {label}
       </p>
-      <div className="font-sans text-espresso text-xl leading-loose space-y-4">
+      <div className="border-t border-espresso/15 mb-6" />
+      <p className="font-sans text-espresso text-xl leading-loose">
         {children}
-      </div>
+      </p>
     </div>
   )
 }
 
 /**
- * Two-column layout, CSS Grid with a literal grid-template-columns:
- * 1fr 1fr at md+ (Tailwind: `md:grid-cols-[1fr_1fr]`) — a hard 50/50
- * split, not the 12-track/col-span-6 composition used in earlier
- * revisions. Both compute to the same pixel result, but 1fr/1fr reads
- * unambiguously in devtools as exactly two tracks, with nothing left
- * to double-check. `order-*` flips which *track* each item lands in on
- * mobile vs. desktop — portrait first (both in the DOM and visually)
- * below md, portrait in the second track (right side) at md+ — while
- * keeping the same source order (and therefore the same DOM/reading
- * order for screen readers) either way. Grid respects `order` during
- * auto-placement, so this doesn't require an explicit grid-column
- * value on either item.
+ * Five-beat restructure (content reduction, not a redesign — same
+ * tokens, same shared components throughout):
  *
- * This is not flexbox: there is no flex-wrap anywhere in this layout,
- * so "the text column wrapping beneath the image column" isn't a
- * failure mode that can occur here — a CSS Grid item can only leave
- * its assigned track by that track disappearing entirely, which is
- * exactly what `grid-cols-1` (no md: prefix) does below the 768px
- * breakpoint. Verified directly against the deployed build before this
- * pass: `display: grid` confirmed, portrait and copy bounding rects
- * never overlap in x (each stays in its own ~504px-wide lane for its
- * full height) even though the two columns' heights differ — that's
- * the columns not needing equal height, not a stacking bug.
+ * 1. Headline + portrait, true CSS Grid 50/50 (grid-template-columns:
+ *    1fr 1fr via `md:grid-cols-[1fr_1fr]`, not flex — no wrap-collapse
+ *    failure mode exists here at all). `items-center` is new: the left
+ *    column dropped from three labeled sections to one paragraph, so
+ *    it's now much shorter than the portrait: centering it against the
+ *    portrait's height (rather than the previous default top-aligned
+ *    stretch) is what keeps this beat feeling intentional instead of
+ *    top-heavy on one side.
+ * 2. Full-width pull quote on its own `bg-cream` band — this is the
+ *    one place on the page that isn't `bg-sand`, and it's a full-bleed
+ *    sibling `<div>` (not nested in beat 1's max-w-6xl container) for
+ *    exactly that reason: the cream has to run edge to edge.
+ * 3. Two labeled blocks (LabeledBlock, above), replacing the three
+ *    SectionLabel sections beat 1 used to carry. "My approach" isn't
+ *    relocated here — its one memorable line survives as beat 2's pull
+ *    quote, the rest of that paragraph is genuinely cut.
+ * 4. The CTA, unchanged internally (same Button, same Link, same
+ *    label) — only its wrapper changed, from a margin-based offset
+ *    inside the old shared container to its own beat-spaced section,
+ *    consistent with the rest of this page now.
+ * 5. The Instagram section — untouched, byte-for-byte the same JSX as
+ *    before, just re-parented as the next sibling after beat 4 instead
+ *    of a child of the old shared wrapper. Its own `mt-24 md:mt-32`
+ *    top margin plus `border-t border-taupe/30` still do their job
+ *    identically as a sibling in normal flow.
  *
- * Static, not sticky: a prior revision pinned the portrait in place via
- * position: sticky while the text column scrolled past it. That's
- * removed entirely — the portrait is a plain grid item and scrolls
- * normally with the rest of the page. Grid's default align-items:
- * stretch still means the portrait's grid *cell* matches the taller
- * column's height, but that only affects empty space below whichever
- * column is shorter — it doesn't stretch the image itself, so a
- * portrait taller than the text column (or vice versa) is left alone
- * rather than forced to match.
+ * Beat spacing (2, 3, 4) is `py-20 lg:py-32` per this pass's spec — a
+ * deliberate switch from the rest of the page's `md:` (768px) prefix
+ * to `lg:` (1024px) for this specific inter-beat rhythm. Beat 1 keeps
+ * that same py-20/lg:py-32 pattern too, since nothing in the spec
+ * exempted it and it reads as "beat 0" in the same rhythm as 2-4.
  *
  * Only the persistent site-wide Header renders here — no MastheadHeader.
  * One nav element on this page, not two.
@@ -194,24 +187,22 @@ export default function About() {
     <div className="bg-sand">
       <Header />
       <main className="pt-20">
-        <div className="mx-auto max-w-6xl px-6 sm:px-10 py-16 md:py-24">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-y-16 md:gap-x-16">
-            {/* Portrait + signature — large and static (no sticky/
-                scroll-pinned behavior anywhere on this page), and
-                deliberately borderless: no frame, no padding-mat, no
-                rotation, no shadow — sits clean directly against the
-                cream page background. (A prior revision framed it like
-                a mounted photo; this spec explicitly retires that
-                treatment — the Instagram card below is now the only
-                bordered element on the page.) max-w-sm sm:max-w-md caps
-                it on mobile where it's stacked above the copy
-                full-width; md:max-w-none removes that cap entirely at
-                the 50% column width so it fills its half of the page. */}
+        {/* BEAT 1 — headline + portrait */}
+        <div className="mx-auto max-w-6xl px-6 sm:px-10 py-20 lg:py-32">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-y-16 md:gap-x-16 items-center">
+            {/* Portrait + signature — static (no sticky/scroll-pinned
+                behavior anywhere on this page), borderless: no frame,
+                no padding-mat, no rotation, no shadow — sits clean
+                directly against the page background. max-w-sm
+                sm:max-w-md caps it on mobile where it's stacked above
+                the copy full-width; md:max-w-none removes that cap
+                entirely at the 50% column width so it fills its half
+                of the page. */}
             <Reveal className="order-1 md:order-2">
               <div className="max-w-sm sm:max-w-md md:max-w-none mx-auto md:mx-0">
                 <img
                   src={aboutPortrait}
-                  alt="Black-and-white portrait of Evelyn, seated and glancing back over her shoulder mid-laugh, wearing a black sweater and skirt against a softly textured backdrop"
+                  alt="Evelyn Grace, personal style consultant, seated black-and-white portrait"
                   className="w-full aspect-[4/5] object-cover"
                 />
 
@@ -222,16 +213,17 @@ export default function About() {
                     template) and the rest of the repo/filesystem for one
                     — none exists yet. Per spec, this is deliberately set
                     in Fraunces italic rather than a script/cursive font
-                    standing in for a real signature. mt-8 (was mt-6) so
-                    it reads as clearly spaced from the now-borderless
-                    photo edge, not cramped against it. */}
+                    standing in for a real signature. */}
                 <p className="mt-8 text-center font-serif italic text-4xl md:text-5xl text-espresso">
                   Evelyn Grace
                 </p>
               </div>
             </Reveal>
 
-            {/* Copy */}
+            {/* Copy — kicker, headline, and the single opening
+                paragraph. The three labeled sections that used to live
+                here are gone: two moved to Beat 3, one distilled into
+                Beat 2's pull quote. */}
             <div className="order-2 md:order-1">
               <Reveal>
                 <p className="font-serif text-sm uppercase tracking-[0.18em] text-espresso mb-5">
@@ -242,74 +234,76 @@ export default function About() {
                 </h1>
               </Reveal>
 
-              {/* Opening statement — the page's thesis, no label, sized
-                  between the headline and the labeled-section body copy
-                  below it (text-2xl vs. the section body's text-xl) so
-                  it reads as a lead-in with more weight than a regular
-                  paragraph, not just another beat. This final spec cuts
-                  it to a single sentence — the previous two-paragraph
-                  extension is gone, not just relabeled. */}
               <Reveal delay={100}>
                 <p className="font-sans text-espresso text-2xl leading-relaxed">
                   Thoughtful styling for women who want to feel confident,
                   polished, and completely themselves in what they wear.
                 </p>
               </Reveal>
-
-              {/* Three short beats, not five paragraph-length ones — cut
-                  down from the original bio rather than just relabeled;
-                  each is 2-3 sentences. */}
-              <Reveal delay={150}>
-                <SectionLabel label="Where it started">
-                  <p>
-                    My background is in luxury fashion retail and client
-                    service — work that taught me just how personal
-                    getting dressed really is. I have a degree in Fashion
-                    Merchandising and Product Development, and clothes
-                    have been a lifelong love: my mood is only ever as
-                    good as my outfit.
-                  </p>
-                </SectionLabel>
-
-                <SectionLabel label="My approach">
-                  <p>
-                    My style has always been rooted in juxtaposition —
-                    feminine with tomboy, polished with unexpected,
-                    investment pieces with something inexpensive.
-                    Contrast makes an outfit interesting, and
-                    that&rsquo;s the first thing I tell every client.
-                    Great style isn&rsquo;t about trends or an endless
-                    closet — it&rsquo;s making what you already own work
-                    harder, and adding only what truly earns its place.
-                  </p>
-                </SectionLabel>
-
-                <SectionLabel label="How we’ll work together">
-                  <p>
-                    I work with clients in Phoenix and remotely, one on
-                    one, to build a repertoire of outfits that feels
-                    polished, effortless, and completely yours.
-                  </p>
-                </SectionLabel>
-              </Reveal>
             </div>
           </div>
+        </div>
 
-          {/* Full-width CTA — deliberately breaks out of the two-column
-              grid above rather than sitting in the left column. */}
-          <Reveal delay={200} className="text-center mt-20 md:mt-28">
+        {/* BEAT 2 — full-width pull quote, cream band. Deliberately
+            mostly whitespace: one hairline, one line of type, nothing
+            else. */}
+        <div className="bg-cream">
+          <div className="mx-auto max-w-6xl px-6 sm:px-10 py-24 lg:py-40 text-center">
+            <Reveal>
+              {/* "max-w-24" per spec named a width, not a max-width, so
+                  this is a fixed w-24 (96px) — a max-width alone
+                  wouldn't render a visible line without a base width. */}
+              <div className="w-24 mx-auto border-t border-terracotta mb-10" />
+              <p className="font-serif italic text-3xl lg:text-5xl text-espresso">
+                &ldquo;Contrast makes an outfit interesting.&rdquo;
+              </p>
+            </Reveal>
+          </div>
+        </div>
+
+        {/* BEAT 3 — two labeled blocks, side by side */}
+        <div className="mx-auto max-w-6xl px-6 sm:px-10 py-20 lg:py-32">
+          <Reveal>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+              <LabeledBlock label={'( Where it started )'}>
+                My background is in luxury fashion retail and client
+                service — work that taught me just how personal getting
+                dressed really is. Clothes have been a lifelong love: my
+                mood is only ever as good as my outfit.
+              </LabeledBlock>
+
+              <LabeledBlock label={'( How we’ll work together )'}>
+                I work with clients in Phoenix and remotely, one on one,
+                to build outfits that feel polished, versatile, and true
+                to you. Great style isn&rsquo;t an endless closet —
+                it&rsquo;s making what you already own work harder, and
+                adding only what earns its place.
+              </LabeledBlock>
+            </div>
+          </Reveal>
+        </div>
+
+        {/* BEAT 4 — CTA. Same Button/Link/label as always; only the
+            wrapper (now its own beat-spaced section rather than a
+            margin offset inside the old shared container) changed. */}
+        <div className="mx-auto max-w-6xl px-6 sm:px-10 py-20 lg:py-32 text-center">
+          <Reveal>
             <Button as={Link} to="/services#consultation">
               Book Your Complimentary Consultation
             </Button>
           </Reveal>
+        </div>
 
-          {/* Follow the Journey — Instagram feed. A taupe hairline (the
-              same weight Footer uses to open its own section) marks this
-              as a new page section, distinct from the finer espresso
-              hairlines separating the labeled bio beats above. Sits below
-              the CTA with its own top margin so the feed's async render
-              can never shift the CTA's position. */}
-          <Reveal delay={250} className="mt-24 md:mt-32 pt-16 md:pt-20 border-t border-taupe/30 text-center">
+        {/* BEAT 5 — Follow the Journey / Instagram feed. The Reveal
+            below is untouched — identical className to before this
+            pass (same taupe top hairline, same mt-24/md:mt-32 +
+            pt-16/md:pt-20), just re-parented as the next sibling after
+            Beat 4 instead of a child of the old shared max-w-6xl
+            wrapper. pb-20 lg:pb-32 lives on this new outer wrapper
+            instead, standing in for the bottom padding the old single
+            shared container used to provide for the whole page. */}
+        <div className="mx-auto max-w-6xl px-6 sm:px-10 pb-20 lg:pb-32">
+          <Reveal className="mt-24 md:mt-32 pt-16 md:pt-20 border-t border-taupe/30 text-center">
             <h2 className="font-serif text-sm uppercase tracking-[0.18em] text-espresso mb-10">
               {'( Follow the Journey )'}
             </h2>
