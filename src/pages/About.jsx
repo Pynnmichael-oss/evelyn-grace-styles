@@ -151,6 +151,17 @@ const BELIEFS = [
  * never used it even before Nav replaced the old fixed Header, so
  * there's no second-wordmark redundancy to worry about here the way
  * there is on Experience/Services/Shop.
+ *
+ * Shared page-frame pass: Sections 1/3/4's own pt- values now match the
+ * site-wide rhythm (pt-16/lg:pt-28 for Section 1, since it's the
+ * nav-to-content gap; pt-20/lg:pt-32 for Sections 3 and 4, the
+ * between-sections gap) — only the padding changed, not the quote
+ * headline's own typography, which stays exactly as built per spec.
+ * Section 5's pb-20/lg:pb-32 already matched and needed no change.
+ * Section 5's own max-w-6xl container is deliberately NOT the 920px
+ * every other section uses here — left alone as adjacent to the
+ * untouched Mirror embed rather than reclassified as page-frame
+ * spacing.
  */
 export default function About() {
   return (
@@ -159,7 +170,7 @@ export default function About() {
       <main>
         {/* SECTION 1 — lead-in + quote headline. The single largest
             element on the page; nothing else on it competes in scale. */}
-        <div className="px-6 sm:px-10 pt-16 lg:pt-36 text-center">
+        <div className="px-6 sm:px-10 pt-16 lg:pt-28 text-center">
           <div className="max-w-[920px] mx-auto">
             <Reveal>
               <p className="font-sans uppercase tracking-[0.22em] text-2xl text-terracotta-deep mb-6">
@@ -191,7 +202,7 @@ export default function About() {
         </div>
 
         {/* SECTION 3 — philosophy statement, body copy, signature line. */}
-        <div className="px-6 sm:px-10 pt-14 lg:pt-24 text-center">
+        <div className="px-6 sm:px-10 pt-20 lg:pt-32 text-center">
           <div className="max-w-[920px] mx-auto">
             <Reveal>
               <h2 className="font-serif font-light text-xl lg:text-3xl text-balance text-espresso mb-6">
@@ -215,7 +226,7 @@ export default function About() {
 
         {/* SECTION 4 — belief lines. Divider sits BETWEEN lines only
             (i > 0 guard) — none above the first, none below the last. */}
-        <div className="px-6 sm:px-10 pt-20 lg:pt-36 pb-14 lg:pb-24 text-center">
+        <div className="px-6 sm:px-10 pt-20 lg:pt-32 pb-14 lg:pb-24 text-center">
           <div className="max-w-[920px] mx-auto">
             <Reveal>
               <h2 className="font-sans uppercase tracking-[0.22em] text-2xl text-terracotta-deep mb-2">

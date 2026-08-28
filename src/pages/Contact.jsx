@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import Eyebrow from '../components/Eyebrow'
 import Button from '../components/Button'
 import Divider from '../components/Divider'
 import Reveal from '../components/Reveal'
@@ -53,21 +52,40 @@ export default function Contact() {
   return (
     <div className="bg-sand">
       <Nav className="px-6 sm:px-10 pt-8 pb-8 lg:pt-10 lg:pb-10 border-b border-taupe/30" />
-      {/* main's own pt-32/md:pt-40/lg:pt-48 is left exactly as it was
-          before this pass — unlike About/Experience/Services/Shop,
-          these values don't cleanly decompose into "80px fixed-header
-          clearance + something else" (pt and pb only converge at
-          md/lg, and this layout is also min-h-screen-centered), so
-          reducing them risked guessing wrong at the vertical balance
-          rather than fixing a real problem. Flagged in the audit;
-          checked the rendered result visually instead of assuming. */}
-      <main className="pt-32 pb-24 md:pt-40 md:pb-40 lg:pt-48 lg:pb-48 min-h-screen flex items-center">
-        <div className="mx-auto max-w-[640px] px-6 sm:px-10 w-full">
+      {/* Shared page-frame pass: the previous turn deliberately left this
+          bespoke pt-32/md:pt-40/lg:pt-48 + pb-24/md:pb-40/lg:pb-48
+          untouched because it wasn't clear how much was "80px
+          fixed-header clearance" vs. intentional vertical-centering
+          headroom. This pass has an explicit directive to apply the
+          site-wide pt-16/lg:pt-28 (nav-to-content) / pb-20/lg:pb-32
+          (content-to-footer) rhythm everywhere, so it's applied here
+          too now — min-h-screen/flex items-center (the centering
+          mechanism itself, not a spacing value) is kept. Container
+          widened max-w-[640px] -> max-w-[1200px] per spec (functional-UI
+          page) — the form itself has no separate inner max-width, so it
+          now spans meaningfully wider than before; worth a visual check
+          after deploy. */}
+      <main className="pt-16 pb-20 lg:pt-28 lg:pb-32 min-h-screen flex items-center">
+        <div className="mx-auto max-w-[1200px] px-6 sm:px-10 w-full">
           <Reveal className="text-center">
-            <Eyebrow>Contact</Eyebrow>
-            <h2 className="font-serif font-light text-4xl md:text-5xl text-espresso mb-4">
+            {/* Shared heading pattern: existing copy kept verbatim
+                ("Contact" label, "Let's get started." heading), only
+                the styling and element type change — h2 -> h1, since
+                this page previously had no h1 at all. */}
+            {/* text-2xl, not the spec's literal text-xs — measured
+                terracotta-deep on sand at 4.032:1, which fails WCAG AA's
+                4.5:1 for normal-size text (General Sans only loads
+                weights 400/500 site-wide, so the "large text" bold
+                exception isn't available either). text-2xl (24px) is
+                the smallest size that legitimately clears the large-text
+                3:1 threshold at this color — same fix already applied
+                on About's two terracotta-deep labels. */}
+            <p className="font-sans uppercase tracking-[0.22em] text-2xl text-terracotta-deep mb-4">
+              Contact
+            </p>
+            <h1 className="font-serif font-light text-3xl lg:text-5xl text-balance text-espresso mb-4">
               Let&rsquo;s get started.
-            </h2>
+            </h1>
             <p className="font-sans text-espresso leading-relaxed mb-10 max-w-md mx-auto">
               Send a few details about what you&rsquo;re looking for, and
               I&rsquo;ll follow up to schedule a 15-minute consultation.

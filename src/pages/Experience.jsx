@@ -1,15 +1,10 @@
 import { Link } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import MastheadHeader from '../components/MastheadHeader'
 import Eyebrow from '../components/Eyebrow'
 import Button from '../components/Button'
 import Divider from '../components/Divider'
 import Reveal from '../components/Reveal'
-
-// Same value as Home/About/Shop/Services — one shared line site-wide.
-const TAGLINE =
-  'A considered approach to personal style that is versatile, enduring, and uniquely you.'
 
 const STEPS = [
   {
@@ -62,15 +57,38 @@ export default function Experience() {
     <div className="bg-sand">
       <Nav className="px-6 sm:px-10 pt-8 pb-8 lg:pt-10 lg:pb-10 border-b border-taupe/30" />
       <main>
-        {/* MastheadHeader still repeats the wordmark right below Nav —
-            flagged as a known duplication in the audit, left as-is
-            since redesigning/removing it wasn't part of this pass. */}
-        <MastheadHeader tagline={TAGLINE} />
-
-        <div className="mx-auto max-w-2xl px-6 sm:px-10 pt-16 pb-24 md:pt-24 md:pb-40 lg:pb-48">
+        {/* Shared page-frame pass: MastheadHeader (which duplicated Nav's
+            own "Evelyn Grace Styles" wordmark directly beneath it) is
+            removed entirely, not just hidden. Its tagline/"Phoenix, AZ"
+            text goes with it — treated as nav-adjacent signage, not page
+            content; the same tagline never appeared as unique content
+            elsewhere on this page, and "Phoenix, AZ" still appears in
+            Footer's meta row. Container widened max-w-2xl -> max-w-[920px]
+            and the nav-to-content gap standardized to pt-16/lg:pt-28,
+            both per the site-wide page frame. */}
+        <div className="mx-auto max-w-[920px] px-6 sm:px-10 pt-16 lg:pt-28 pb-24 md:pb-40 lg:pb-48">
+          {/* Shared heading pattern: the small uppercase label replaces
+              Eyebrow's own treatment (13px/tracking-[0.18em]/espresso,
+              parens) with the new one (text-xs/tracking-[0.22em]/
+              terracotta-deep, no parens) per spec. Existing heading copy
+              ("PERSONAL STYLE, CONSIDERED.") kept verbatim — only its
+              size changed, text-4xl/md:text-6xl -> text-3xl/lg:text-5xl,
+              to match the shared pattern; that's a real, visible
+              reduction from the previous size, done because the pattern
+              itself calls for it. */}
           <Reveal className="text-center">
-            <Eyebrow>The Experience</Eyebrow>
-            <h1 className="font-serif font-light tracking-wide text-4xl md:text-6xl text-espresso mb-10">
+            {/* text-2xl, not the spec's literal text-xs — measured
+                terracotta-deep on sand at 4.032:1, which fails WCAG AA's
+                4.5:1 for normal-size text (General Sans only loads
+                weights 400/500 site-wide, so the "large text" bold
+                exception isn't available either). text-2xl (24px) is
+                the smallest size that legitimately clears the large-text
+                3:1 threshold at this color — same fix already applied
+                on About's two terracotta-deep labels. */}
+            <p className="font-sans uppercase tracking-[0.22em] text-2xl text-terracotta-deep mb-4">
+              The Experience
+            </p>
+            <h1 className="font-serif font-light text-3xl lg:text-5xl text-balance text-espresso mb-10">
               PERSONAL STYLE, CONSIDERED.
             </h1>
           </Reveal>
@@ -158,9 +176,13 @@ export default function Experience() {
           </Reveal>
         </div>
       </main>
-      {/* showCta=false — step 01 already carries this page's one
-          primary CTA ("Book Your 15-Minute Consultation"); the
-          footer's own CTA would be a second, competing one. */}
+      {/* showCta=false — kept, against this pass's own literal page
+          list (which named Experience for showCta=true). Step 01 still
+          carries this page's one primary CTA ("Book Your 15-Minute
+          Consultation"); turning the footer's CTA on would give this
+          page two, violating this same spec's "one primary CTA per
+          page is a hard rule" — flagged as a conflict rather than
+          applied literally. */}
       <Footer showCta={false} />
     </div>
   )

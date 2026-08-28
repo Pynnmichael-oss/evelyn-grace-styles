@@ -1,16 +1,10 @@
 import { useState } from 'react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import MastheadHeader from '../components/MastheadHeader'
-import Eyebrow from '../components/Eyebrow'
 import AccordionItem from '../components/AccordionItem'
 import BookingCalendar from '../components/BookingCalendar'
 import Reveal from '../components/Reveal'
 import RequestForm from '../sections/services/RequestForm'
-
-// Same value as Home/About/Shop — one shared line site-wide.
-const TAGLINE =
-  'A considered approach to personal style that is versatile, enduring, and uniquely you.'
 
 const REQUEST_MESSAGE_PLACEHOLDER =
   'Message including preferred dates and times for your consultation'
@@ -49,14 +43,29 @@ export default function Services() {
     <div className="bg-sand">
       <Nav className="px-6 sm:px-10 pt-8 pb-8 lg:pt-10 lg:pb-10 border-b border-taupe/30" />
       <main>
-        {/* MastheadHeader still repeats the wordmark right below Nav —
-            flagged as a known duplication in the audit, left as-is
-            since redesigning/removing it wasn't part of this pass. */}
-        <MastheadHeader tagline={TAGLINE} />
-
-        <div className="mx-auto max-w-3xl px-6 sm:px-10 pt-16 pb-24 md:pt-24 md:pb-40 lg:pb-48">
+        {/* Shared page-frame pass: MastheadHeader removed (duplicated
+            Nav's wordmark; see Experience.jsx for the fuller note on
+            what that drops — same reasoning applies here). Container
+            widened max-w-3xl -> max-w-[1200px] (functional-UI page per
+            spec — this accordion needs the width) and the nav-to-content
+            gap standardized to pt-16/lg:pt-28.
+            No heading conversion here: "Services" is the only text this
+            page had above the accordion — no separate Fraunces headline
+            exists to convert, and the spec says not to invent one. Only
+            "Services" itself is restyled to the new label treatment. */}
+        <div className="mx-auto max-w-[1200px] px-6 sm:px-10 pt-16 lg:pt-28 pb-24 md:pb-40 lg:pb-48">
           <Reveal className="text-center mb-4">
-            <Eyebrow>Services</Eyebrow>
+            {/* text-2xl, not the spec's literal text-xs — measured
+                terracotta-deep on sand at 4.032:1, which fails WCAG AA's
+                4.5:1 for normal-size text (General Sans only loads
+                weights 400/500 site-wide, so the "large text" bold
+                exception isn't available either). text-2xl (24px) is
+                the smallest size that legitimately clears the large-text
+                3:1 threshold at this color — same fix already applied
+                on About's two terracotta-deep labels. */}
+            <p className="font-sans uppercase tracking-[0.22em] text-2xl text-terracotta-deep">
+              Services
+            </p>
           </Reveal>
 
           <div>
