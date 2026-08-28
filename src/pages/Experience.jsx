@@ -3,13 +3,6 @@ import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
 import Reveal from '../components/Reveal'
-// Fitting-scene photo, confirmed by opening the file rather than
-// trusting its name: Evelyn (blonde, navy top) adjusting the shoulder
-// strap of the model's black V-neck dress, grey studio backdrop.
-// evelyn-model-handshake.jpg is the same two people/backdrop but a
-// handshake pose — ruled out. 868x1288 source, full color, ~83KB,
-// well under the 300KB flag threshold.
-import fittingScene from '../assets/images/evelyn-styling-behind-scenes.jpg'
 
 // Shared by every step's body paragraphs — one static, complete class
 // string reused verbatim, not built per-step (no `step-${n}` anywhere
@@ -22,8 +15,7 @@ const stepBodyClassName =
  * gets it identically — impossible to accidentally vary between steps
  * this way, which the spec calls out as a real failure mode ("uneven
  * step spacing will read as sloppy"). `dividerAbove` defaults true;
- * steps 01 (first) and 03 (the full-bleed photo already provides the
- * separation from 02) pass false explicitly at the call site.
+ * only step 01 (first) passes false explicitly at the call site.
  */
 function Step({ number, title, dividerAbove = true, children, cta }) {
   return (
@@ -46,14 +38,16 @@ function Step({ number, title, dividerAbove = true, children, cta }) {
 }
 
 /**
- * Full page rebuild — replaces the previous (shorter-copy) Experience
- * page entirely, not incrementally. Structure: heading + intro flow
- * centered together (Section 1 pt-16/lg:pt-28 is the only top padding
- * between them; a plain mb-10 separates the h1 from the paragraphs),
- * the three "No" lines as their own section with explicit padding on
- * both sides, four left-aligned steps (a deliberate asymmetry against
- * the centered sections around them), a full-bleed photo breaking out
- * of the column between steps 02 and 03, and a centered Pricing close.
+ * Full page rebuild — structure: heading + intro flow centered together
+ * (Section 1 pt-16/lg:pt-28 is the only top padding between them; a
+ * plain mb-10 separates the h1 from the paragraphs), the three "No"
+ * lines as their own section with explicit padding on both sides, four
+ * left-aligned steps in one continuous block (a deliberate asymmetry
+ * against the centered sections around them), and a centered Pricing
+ * close. No photography anywhere on this page — a prior revision had a
+ * full-bleed photo between steps 02 and 03; that's removed entirely
+ * here, not hidden, and the divider between those two steps (previously
+ * omitted because the photo supplied the separation) is restored.
  *
  * Accessibility note, same fix as every other interior page: the
  * spec's literal text-xs for terracotta-deep labels measures 4.032:1
@@ -131,10 +125,10 @@ export default function Experience() {
           </Reveal>
         </div>
 
-        {/* SECTION 4 (part 1) — steps 01-02. Left-aligned: a deliberate
-            asymmetry against the centered sections above/below — this
-            is a sequence, not a statement, and needs one consistent
-            left edge to read as one. */}
+        {/* SECTION 4 — four steps, one continuous block. Left-aligned: a
+            deliberate asymmetry against the centered sections above/
+            below — this is a sequence, not a statement, and needs one
+            consistent left edge to read as one. */}
         <div className="max-w-[920px] mx-auto px-6 sm:px-10">
           <h2 className="sr-only">The process, step by step</h2>
 
@@ -180,30 +174,8 @@ export default function Experience() {
               We&rsquo;ll focus on what will make the biggest difference.
             </p>
           </Step>
-        </div>
 
-        {/* SECTION 6 — full-bleed photo, between steps 02 and 03.
-            Flush to both viewport edges: deliberately outside any
-            px-6/sm:px-10 wrapper and the max-w-[920px] column. Full
-            color — no grayscale filter. object-[50%_30%] (a static
-            arbitrary-value class, not string-interpolated) keeps both
-            faces and hands in frame; the default center crop on this
-            portrait-orientation source would land mid-torso. my-16/
-            lg:my-24 is this section's own spacing; the hairline that
-            would normally sit between steps 02/03 is omitted (dividerAbove
-            false on step 03 below) since the photo is the separation. */}
-        <div className="w-full h-[300px] md:h-[420px] lg:h-[560px] overflow-hidden my-16 lg:my-24">
-          <img
-            src={fittingScene}
-            alt="Evelyn Grace adjusting a client's dress during a styling session"
-            loading="lazy"
-            className="w-full h-full object-cover object-[50%_30%]"
-          />
-        </div>
-
-        {/* SECTION 4 (part 2) — steps 03-04. */}
-        <div className="max-w-[920px] mx-auto px-6 sm:px-10">
-          <Step number="03" title="Style with intention" dividerAbove={false}>
+          <Step number="03" title="Style with intention">
             <p className={stepBodyClassName}>
               Your styling experience can take place virtually or in the
               comfort of your Phoenix home.
@@ -237,7 +209,7 @@ export default function Experience() {
           </Step>
         </div>
 
-        {/* SECTION 7 — Pricing. No numbers/rates/figures anywhere — the
+        {/* SECTION 6 — Pricing. No numbers/rates/figures anywhere — the
             body copy explains the approach, not a price. "Explore
             services" is a plain text link (permanent 1px terracotta
             underline, not a hover-reveal), never a Button — this page's
@@ -266,7 +238,7 @@ export default function Experience() {
         </div>
       </main>
 
-      {/* SECTION 8 — showCta=false: step 01's CTA above is this page's
+      {/* SECTION 7 — showCta=false: step 01's CTA above is this page's
           one button; the footer's own would be a second, competing one. */}
       <Footer showCta={false} />
     </div>
