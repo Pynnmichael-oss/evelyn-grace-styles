@@ -1,4 +1,4 @@
-import InlineNavStrip from '../components/InlineNavStrip'
+import Nav from '../components/Nav'
 // Imported (not referenced as a raw "/hero-photo-1.jpg" string) so Vite
 // resolves them through its asset pipeline — the site is built with
 // base: '/evelyn-grace-styles/' for GitHub Pages, and a hardcoded
@@ -57,10 +57,11 @@ const rotatedFillImageClassName =
 
 /**
  * Home's entire page body: two full-bleed, rotated photos bookending
- * InlineNavStrip. Nothing else — no intro copy, no CTA, no persistent
- * Header (Home suppresses it entirely; see Home.jsx and
- * InlineNavStrip.jsx, which carries all of Home's navigation instead).
- * Both images sit flush at the top/bottom edges of the page.
+ * Nav. Nothing else — no intro copy, no CTA. Nav renders here with its
+ * default className (no border, py-5/md:py-6) — the exact styling this
+ * strip has always had; interior pages pass their own override for the
+ * header-like treatment instead. Both images sit flush at the top/
+ * bottom edges of the page.
  */
 export default function Hero() {
   return (
@@ -81,7 +82,7 @@ export default function Hero() {
         />
       </div>
 
-      <InlineNavStrip />
+      <Nav />
 
       <div className="relative w-full h-[120vw] md:h-screen overflow-hidden">
         {/* Already black-and-white in the source file — no grayscale

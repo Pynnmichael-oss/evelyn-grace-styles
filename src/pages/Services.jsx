@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Header from '../components/Header'
+import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import MastheadHeader from '../components/MastheadHeader'
 import Eyebrow from '../components/Eyebrow'
@@ -47,8 +47,11 @@ export default function Services() {
 
   return (
     <div className="bg-sand">
-      <Header />
-      <main className="pt-20">
+      <Nav className="px-6 sm:px-10 pt-8 pb-8 lg:pt-10 lg:pb-10 border-b border-taupe/30" />
+      <main>
+        {/* MastheadHeader still repeats the wordmark right below Nav —
+            flagged as a known duplication in the audit, left as-is
+            since redesigning/removing it wasn't part of this pass. */}
         <MastheadHeader tagline={TAGLINE} />
 
         <div className="mx-auto max-w-3xl px-6 sm:px-10 pt-16 pb-24 md:pt-24 md:pb-40 lg:pb-48">

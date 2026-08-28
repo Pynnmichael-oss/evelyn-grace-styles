@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Header from '../components/Header'
+import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import Reveal from '../components/Reveal'
 // Imported rather than referenced as a raw string — the site builds with
@@ -146,14 +146,17 @@ const BELIEFS = [
  * literal spec, made because it's the smallest size that legitimately
  * satisfies the spec's own stated priority (fix via size, not color).
  *
- * Only the persistent site-wide Header renders here — no MastheadHeader.
- * One nav element on this page, not two.
+ * Nav renders first, unbordered-header style (pt-8/pb-8/lg:pt-10/
+ * lg:pb-10 + bottom hairline). No MastheadHeader on this page — About
+ * never used it even before Nav replaced the old fixed Header, so
+ * there's no second-wordmark redundancy to worry about here the way
+ * there is on Experience/Services/Shop.
  */
 export default function About() {
   return (
     <div className="bg-sand">
-      <Header />
-      <main className="pt-20">
+      <Nav className="px-6 sm:px-10 pt-8 pb-8 lg:pt-10 lg:pb-10 border-b border-taupe/30" />
+      <main>
         {/* SECTION 1 — lead-in + quote headline. The single largest
             element on the page; nothing else on it competes in scale. */}
         <div className="px-6 sm:px-10 pt-16 lg:pt-36 text-center">

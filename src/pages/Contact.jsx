@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Header from '../components/Header'
+import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import Eyebrow from '../components/Eyebrow'
 import Button from '../components/Button'
@@ -52,7 +52,15 @@ export default function Contact() {
 
   return (
     <div className="bg-sand">
-      <Header />
+      <Nav className="px-6 sm:px-10 pt-8 pb-8 lg:pt-10 lg:pb-10 border-b border-taupe/30" />
+      {/* main's own pt-32/md:pt-40/lg:pt-48 is left exactly as it was
+          before this pass — unlike About/Experience/Services/Shop,
+          these values don't cleanly decompose into "80px fixed-header
+          clearance + something else" (pt and pb only converge at
+          md/lg, and this layout is also min-h-screen-centered), so
+          reducing them risked guessing wrong at the vertical balance
+          rather than fixing a real problem. Flagged in the audit;
+          checked the rendered result visually instead of assuming. */}
       <main className="pt-32 pb-24 md:pt-40 md:pb-40 lg:pt-48 lg:pb-48 min-h-screen flex items-center">
         <div className="mx-auto max-w-[640px] px-6 sm:px-10 w-full">
           <Reveal className="text-center">
