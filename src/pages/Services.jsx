@@ -251,7 +251,9 @@ export default function Services() {
           </div>
         </div>
       </main>
-      <Footer />
+      {/* showCta=false — this page's booking calendar / request form is
+          its own primary CTA. */}
+      <Footer showCta={false} />
     </div>
   )
 }

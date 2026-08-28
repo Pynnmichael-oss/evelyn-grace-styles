@@ -172,7 +172,9 @@ export default function Contact() {
           </Reveal>
         </div>
       </main>
-      <Footer />
+      {/* showCta=false — the contact form on this page is its own
+          primary CTA. */}
+      <Footer showCta={false} />
     </div>
   )
 }

@@ -1,52 +1,90 @@
 import { Link } from 'react-router-dom'
 import Button from './Button'
 
-/**
- * Mirrors the header bar layout (wordmark left / location right),
- * plus a contact line, one CTA repeat, and a copyright line. Same
- * generous section padding as the rest of the page — not compressed.
- *
- * The CTA matches the one canonical button used everywhere else on the
- * site (About, Experience, Services) — it used to read "Start the
- * Process" / "#process", but that anchor only ever existed on Home's
- * now-removed ProcessTeaser section, so it was a dead link on every
- * other page. Booking now always routes to the real Services page.
- */
-export default function Footer() {
-  return (
-    <footer id="contact" className="border-t border-taupe/30 bg-sand">
-      <div className="mx-auto max-w-6xl px-6 sm:px-10 py-24 md:py-40 lg:py-48">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <span className="caption-label text-[13px] text-espresso">
-            Evelyn Grace Styles
-          </span>
-          <span className="caption-label text-[13px] text-espresso">
-            Phoenix, AZ
-          </span>
-        </div>
+// Only place this URL exists in the codebase besides About's own
+// "Follow the Journey" Instagram link (a separate, untouched section).
+const INSTAGRAM_URL = 'https://www.instagram.com/evelyn123allen/'
 
-        <div className="mt-12 flex flex-col items-start gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="font-serif font-light text-2xl text-espresso mb-2">
-              Let&rsquo;s start with a conversation.
+/**
+ * Site-wide footer. Cream band (differentiates it from the sand page
+ * above), one terracotta hairline as its top border — the only
+ * decorative terracotta anywhere in this component; the CTA button is
+ * terracotta too, but that's Button's own styling, not this file's.
+ *
+ * `id="contact"` is preserved from the previous Footer on purpose:
+ * Header's nav has a plain in-page anchor (`{ label: 'Contact', href:
+ * '#contact' }`, not a route) that scrolls to whatever element carries
+ * this id. Dropping it would silently break that nav link on every
+ * page that renders this component.
+ *
+ * All four stacked blocks (headline+CTA, divider, meta row, contact
+ * line) share ONE flex `gap-12` on their common parent rather than
+ * per-element margins — a single spacing value, and no leftover gap to
+ * clean up when `showCta` removes the first two children (CSS `gap`
+ * only applies *between* the children that actually exist).
+ *
+ * showCta: true by default. Without a CTA, "Tell me what you need
+ * styled." would be a dangling sentence, so both the headline and the
+ * button are gated by the same flag — never one without the other.
+ * Every page that already carries its own primary CTA passes false:
+ * Services (booking calendar/request form) and Contact (contact form)
+ * per spec, plus Experience ("Book Your 15-Minute Consultation") and
+ * Shop ("Shop My Picks", an outbound ShopMy link) — both found while
+ * wiring this in, both would otherwise violate this same spec's own
+ * "one primary CTA per page" rule. Only About keeps the default.
+ */
+export default function Footer({ showCta = true }) {
+  return (
+    <footer id="contact" className="border-t border-terracotta bg-cream">
+      <div className="mx-auto max-w-[1200px] px-6 sm:px-10 py-16 lg:py-24">
+        <div className="flex flex-col items-center gap-12">
+          {showCta && (
+            <p className="font-serif font-light text-2xl lg:text-4xl text-balance text-center text-espresso">
+              Tell me what you need styled.
             </p>
-            <a
-              href="mailto:hello@evelyngracestyles.com"
-              className="font-sans text-espresso hover:text-terracotta underline decoration-transparent hover:decoration-terracotta underline-offset-4 transition-colors duration-200 ease-out"
-            >
-              hello@evelyngracestyles.com
-            </a>
+          )}
+
+          {showCta && (
+            <Button as={Link} to="/services#consultation">
+              Book Your Complimentary Consultation
+            </Button>
+          )}
+
+          <div className="h-px w-full bg-taupe/30" />
+
+          <div className="w-full flex flex-col items-center gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
+            <span className="font-sans text-xs uppercase tracking-[0.2em] text-espresso">
+              Evelyn Grace Styles
+            </span>
+            <span className="font-sans text-xs uppercase tracking-[0.2em] text-espresso">
+              Phoenix, AZ
+            </span>
           </div>
 
-          <Button as={Link} to="/services#consultation">
-            Book Your Complimentary Consultation
-          </Button>
-        </div>
-
-        <div className="mt-16 pt-6 border-t border-taupe/30">
-          <p className="caption-label text-[11px] text-espresso/70">
-            © {new Date().getFullYear()} Evelyn Grace Styles. All rights reserved.
-          </p>
+          <div className="w-full flex flex-col items-center gap-2 text-center sm:flex-row sm:items-center sm:justify-start sm:gap-6 sm:text-left">
+            {/* py-4 -my-4 expands the tappable area to a real 44px+
+                touch target (16px text-xs line-height + 16px top +
+                16px bottom = 48px) without shifting anything visually —
+                the negative margin cancels the padding's layout impact,
+                so it only grows the hit box, not the visible spacing.
+                Applied to both links for consistency; the spec only
+                required it on the tel: link specifically. */}
+            <a
+              href="tel:+18304564916"
+              className="font-sans text-xs text-espresso hover:text-terracotta py-4 -my-4 transition-colors duration-200 ease-out"
+            >
+              (830) 456-4916
+            </a>
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-sans text-xs text-espresso hover:text-terracotta py-4 -my-4 transition-colors duration-200 ease-out"
+            >
+              Instagram
+            </a>
+            {/* TODO: email pending confirmation from client */}
+          </div>
         </div>
       </div>
     </footer>

@@ -42,7 +42,10 @@ export default function Shop() {
           </Reveal>
         </div>
       </main>
-      <Footer />
+      {/* showCta=false — "Shop My Picks" (an outbound ShopMy link) is
+          this page's one primary CTA; not named in the original ask
+          but the same "one CTA per page" rule applies here too. */}
+      <Footer showCta={false} />
     </div>
   )
 }

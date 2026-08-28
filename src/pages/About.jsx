@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import Button from '../components/Button'
 import Reveal from '../components/Reveal'
 // Imported rather than referenced as a raw string — the site builds with
 // base: '/evelyn-grace-styles/' for GitHub Pages, and a hardcoded
@@ -124,10 +122,13 @@ const BELIEFS = [
  * Full structural rebuild: the 50/50 grid, the seated portrait, its
  * "Evelyn Grace" caption, the three labeled sections, and the
  * "Personal style, with intention." headline are all gone — not
- * hidden, not relocated. This is six stacked, centered sections
+ * hidden, not relocated. This is five stacked, centered sections
  * (max-w-[920px] except Section 2's full-bleed image), same two
- * typefaces and same shared components (Header, Footer, Button,
- * Reveal) as the rest of the site.
+ * typefaces and same shared components (Header, Footer, Reveal) as the
+ * rest of the site. The standalone CTA that used to sit between the
+ * belief lines and the Instagram embed is gone too — Footer's own
+ * (default-on) CTA replaces it, so About still ends with exactly one
+ * primary call to action, just relocated into the shared component.
  *
  * Accessibility conflict, flagged rather than silently resolved either
  * way: this spec asks for `terracotta-deep` (#A8623F) at `text-xs` on
@@ -231,22 +232,14 @@ export default function About() {
           </div>
         </div>
 
-        {/* SECTION 5 — CTA. Same Button/Link/label as every other CTA
-            on the site; the only button on this page. */}
-        <div className="px-6 sm:px-10 pb-20 lg:pb-32 text-center">
-          <Reveal>
-            <Button as={Link} to="/services#consultation">
-              Book Your Complimentary Consultation
-            </Button>
-          </Reveal>
-        </div>
-
-        {/* SECTION 6 — Follow the Journey / Instagram feed. Untouched:
+        {/* SECTION 5 — Follow the Journey / Instagram feed. Untouched:
             identical JSX to the prior revision — same feed ID, bridge
             script, white/terracotta wrapper, same max-w-6xl outer
             container (not the 920px this rebuild uses elsewhere,
             deliberately, since this section is reused exactly as
-            audited rather than restyled to match). */}
+            audited rather than restyled to match). Footer renders
+            immediately after this, with its own default CTA standing
+            in for the standalone one that used to sit here. */}
         <div className="mx-auto max-w-6xl px-6 sm:px-10 pb-20 lg:pb-32">
           <Reveal className="mt-24 md:mt-32 pt-16 md:pt-20 border-t border-taupe/30 text-center">
             <h2 className="font-serif text-sm uppercase tracking-[0.18em] text-espresso mb-10">

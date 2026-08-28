@@ -155,7 +155,10 @@ export default function Experience() {
           </Reveal>
         </div>
       </main>
-      <Footer />
+      {/* showCta=false — step 01 already carries this page's one
+          primary CTA ("Book Your 15-Minute Consultation"); the
+          footer's own CTA would be a second, competing one. */}
+      <Footer showCta={false} />
     </div>
   )
 }
