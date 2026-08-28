@@ -6,14 +6,15 @@ import Reveal from '../components/Reveal'
 // base: '/evelyn-grace-styles/' for GitHub Pages, and a hardcoded
 // root-absolute path silently 404s under that subpath.
 //
-// This is the fitting-scene photo per this rebuild's audit: found by
-// visually opening candidate files, not guessing from filenames.
-// evelyn-model-handshake.jpg is the same two people/backdrop but a
-// handshake pose; this file is the actual fitting — Evelyn (blonde,
-// navy top) adjusting the shoulder strap of the model's black V-neck
-// dress, grey studio backdrop. 868x1288 source, full color, ~83KB —
-// well under the 300KB flag threshold.
-import fittingScene from '../assets/images/evelyn-styling-behind-scenes.jpg'
+// Solo B&W portrait, per this pass's audit: compared candidates
+// pixel-by-pixel rather than trusting filenames. evelyn-portrait-wide.jpg
+// is the same pose/session and also true grayscale, but this file was
+// already the established pick from earlier work on this page.
+// evelyn-portrait-close.jpg looks like a match by name/pose but isn't
+// actually black-and-white — it retains a real color cast (91 max
+// channel diff vs. 0 for this file). 853x1280 source, 52KB, well under
+// the 300KB flag threshold.
+import aboutPortrait from '../assets/images/about-portrait.jpg'
 
 // Mirror App Instagram feed embed for "Follow the Journey". Evelyn's
 // account: https://www.instagram.com/evelyn123allen/
@@ -185,19 +186,27 @@ export default function About() {
           </div>
         </div>
 
-        {/* SECTION 2 — full-bleed fitting-scene photo. Flush to both
-            viewport edges: deliberately outside any px-6/sm:px-10
-            wrapper, and outside the max-w-[920px] every other section
-            uses. Full color — no grayscale filter. object-[50%_30%]
-            (a static arbitrary-value class, not string-interpolated)
-            keeps both faces in frame; the default 50% center crop on a
-            portrait-orientation source this tall would land mid-torso. */}
-        <div className="w-full h-[300px] md:h-[420px] lg:h-[560px] overflow-hidden">
+        {/* SECTION 2 — contained portrait, not full-bleed (a prior pass
+            used a full-bleed two-person fitting photo here; this
+            replaces it entirely, not just the file). Centered in the
+            column with a capped width per breakpoint rather than
+            spanning the viewport — aspect-[3/4] + object-cover crops
+            the 853x1280 (~2:3) source to fit regardless of its native
+            ratio. object-[center_20%] keeps her face in the upper third
+            rather than the default center crop landing mid-torso.
+            Already black-and-white — no grayscale filter applied.
+            Borderless: no frame, shadow, or rounded corners, and no
+            caption beneath it. pt-16/lg:pt-28 above and below is this
+            pass's explicit spacing choice, not the pt-20/lg:pt-32 used
+            between the philosophy/belief-lines sections elsewhere on
+            this page — kept as specified rather than harmonized to
+            that other value. */}
+        <div className="px-6 sm:px-10 pt-16 lg:pt-28 pb-16 lg:pb-28 text-center">
           <img
-            src={fittingScene}
-            alt="Evelyn Grace adjusting a client's dress during a styling session"
+            src={aboutPortrait}
+            alt="Evelyn Grace, personal style consultant, seated black-and-white portrait"
             loading="lazy"
-            className="w-full h-full object-cover object-[50%_30%]"
+            className="w-full max-w-[300px] md:max-w-[400px] lg:max-w-[460px] mx-auto aspect-[3/4] object-cover object-[center_20%]"
           />
         </div>
 
