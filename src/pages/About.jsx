@@ -266,7 +266,7 @@ export default function About() {
         <div className="mx-auto max-w-6xl px-6 sm:px-10 pb-20 lg:pb-32">
           <Reveal className="mt-24 md:mt-32 pt-16 md:pt-20 border-t border-taupe/30 text-center">
             <h2 className="font-serif text-sm uppercase tracking-[0.18em] text-espresso mb-10">
-              {'( Follow the Journey )'}
+              Follow the Journey
             </h2>
 
             <div className="max-w-2xl mx-auto">

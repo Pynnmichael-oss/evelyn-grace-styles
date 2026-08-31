@@ -74,7 +74,7 @@ export default function Experience() {
         <div className="max-w-[920px] mx-auto px-6 sm:px-10 pt-16 lg:pt-28 text-center">
           <Reveal>
             <p className="font-sans uppercase tracking-[0.22em] text-2xl text-terracotta-deep mb-6">
-              {'( The Experience )'}
+              The Experience
             </p>
             <h1 className="font-serif font-light text-3xl lg:text-5xl text-balance text-espresso mb-10">
               Personal style, considered.
@@ -217,7 +217,7 @@ export default function Experience() {
         <div className="max-w-[920px] mx-auto px-6 sm:px-10 pt-20 lg:pt-32 pb-20 lg:pb-32 text-center">
           <Reveal>
             <p className="font-sans uppercase tracking-[0.22em] text-2xl text-terracotta-deep mb-6">
-              {'( Pricing )'}
+              Pricing
             </p>
             <h2 className="font-serif font-light text-xl lg:text-3xl text-balance text-espresso mb-6">
               A personalized experience, tailored to you.
