@@ -3,6 +3,13 @@ import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
 import Reveal from '../components/Reveal'
+import heroStripedSideProfile from '../assets/images/hero-striped-side-profile.jpg'
+import homeFrontStripedTrousers from '../assets/images/home-front-striped-trousers.jpg'
+import stripedTopAngle from '../assets/images/striped-top-angle.jpg'
+import denimSkirtVestFull from '../assets/images/denim-skirt-vest-full.jpg'
+import denimSkirtVestCrop from '../assets/images/denim-skirt-vest-crop.jpg'
+import blackDressSilverBagFull from '../assets/images/black-dress-silver-bag-full.jpg'
+import silverBagDetailBw from '../assets/images/silver-bag-detail-bw.jpg'
 
 // Shared by every step's body paragraphs — one static, complete class
 // string reused verbatim, not built per-step (no `step-${n}` anywhere
@@ -86,15 +93,10 @@ export default function Experience() {
               Your wardrobe should work for your life.
             </p>
             <p className="font-sans text-base lg:text-lg leading-relaxed max-w-[58ch] mx-auto text-espresso">
-              Together, we&rsquo;ll identify what you love, uncover new
-              possibilities within what you already own, and thoughtfully
-              add pieces when something is missing.
-            </p>
-            <p className="font-sans text-base lg:text-lg leading-relaxed max-w-[58ch] mx-auto text-espresso">
-              From everyday dressing to travel, special occasions, and
-              everything in between, I create polished, wearable looks
-              that feel natural to you — with just enough guidance to
-              help you step outside your usual routine when
+              Together, we&rsquo;ll identify what you love, make more of
+              what you already own, and add pieces only when
+              something&rsquo;s truly missing — polished, wearable looks
+              that feel like you, with room to grow when
               you&rsquo;re ready.
             </p>
           </Reveal>
@@ -125,6 +127,30 @@ export default function Experience() {
           </Reveal>
         </div>
 
+        {/* SECTION 3.5 — photo triptych. About's documented photo-section
+            exception classes (pt-16/lg:pt-28 pb-16/lg:pb-28), reused
+            verbatim rather than the pt-20/lg:pt-32 rhythm used between
+            Experience's other sections. */}
+        <div className="max-w-[920px] mx-auto px-6 sm:px-10 pt-16 lg:pt-28 pb-16 lg:pb-28">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-6 items-end">
+            <img
+              src={heroStripedSideProfile}
+              alt="Model walking in a striped long-sleeve top and cream wide-leg trousers, carrying a woven black tote"
+              className="w-full h-[320px] sm:h-[380px] lg:h-[480px] object-cover"
+            />
+            <img
+              src={homeFrontStripedTrousers}
+              alt="Model standing in a striped long-sleeve top and cream wide-leg trousers, hands clasped"
+              className="w-full h-[320px] sm:h-[380px] lg:h-[480px] object-cover"
+            />
+            <img
+              src={stripedTopAngle}
+              alt="Model in a striped long-sleeve top and cream wide-leg trousers, three-quarter angle"
+              className="w-full h-[320px] sm:h-[380px] lg:h-[480px] object-cover"
+            />
+          </div>
+        </div>
+
         {/* SECTION 4 — four steps, one continuous block. Left-aligned: a
             deliberate asymmetry against the centered sections above/
             below — this is a sequence, not a statement, and needs one
@@ -143,70 +169,71 @@ export default function Experience() {
             }
           >
             <p className={stepBodyClassName}>
-              Book your complimentary 15-minute consultation directly
-              through my calendar.
-            </p>
-            <p className={stepBodyClassName}>
-              We&rsquo;ll talk about what you&rsquo;re looking for, how
-              you currently get dressed, where you feel stuck, and what
-              you&rsquo;d like your wardrobe to do better for you.
-            </p>
-            <p className={stepBodyClassName}>
-              Whether you need help styling pieces you already own, are
-              looking for something specific, or want ongoing guidance,
-              we&rsquo;ll determine the approach that makes the most
-              sense for you.
+              A complimentary 15-minute consultation to talk through
+              where you feel stuck and what you want your wardrobe to
+              do for you.
             </p>
           </Step>
 
           <Step number="02" title="Define your styling needs">
             <p className={stepBodyClassName}>
-              After our consultation, I&rsquo;ll create a personalized
-              styling approach based on your lifestyle, personal
-              aesthetic, wardrobe, upcoming plans, and goals.
-            </p>
-            <p className={stepBodyClassName}>
-              You may want to maximize what you already have. You may
-              need a few new pieces to complete your wardrobe. Or you
-              may have a specific trip, event, or season in mind.
-            </p>
-            <p className={stepBodyClassName}>
-              We&rsquo;ll focus on what will make the biggest difference.
+              I&rsquo;ll shape an approach around your lifestyle,
+              wardrobe, and what&rsquo;s ahead — focused on what will
+              make the biggest difference.
             </p>
           </Step>
 
-          <Step number="03" title="Style with intention">
+          {/* Diptych between steps 02 and 03. dividerAbove={false} on
+              Step 03 below: this photo pair already supplies the visual
+              break between steps, so the usual hairline divider would
+              be redundant directly under it. */}
+          <div className="py-12 lg:py-16">
+            <div className="flex gap-4 sm:gap-6 items-start">
+              <img
+                src={denimSkirtVestFull}
+                alt="Model in a black button vest and dark denim midi skirt, full length"
+                className="flex-1 h-[320px] sm:h-[420px] object-cover"
+              />
+              <img
+                src={denimSkirtVestCrop}
+                alt="Detail crop of a black button vest and dark denim midi skirt"
+                className="w-[120px] sm:w-[160px] h-[320px] sm:h-[420px] object-cover"
+              />
+            </div>
+          </div>
+
+          <Step number="03" title="Style with intention" dividerAbove={false}>
             <p className={stepBodyClassName}>
-              Your styling experience can take place virtually or in the
-              comfort of your Phoenix home.
-            </p>
-            <p className={stepBodyClassName}>
-              We&rsquo;ll create complete looks, experiment with new
-              combinations, refine proportions and details, and identify
-              the pieces that make everything else in your wardrobe work
-              harder.
-            </p>
-            <p className={stepBodyClassName}>
-              When new pieces are needed, I&rsquo;ll thoughtfully source
-              options that complement what you already own — rather
-              than simply adding more to your closet.
+              Virtually or in your Phoenix home, we&rsquo;ll build
+              complete looks and source new pieces only to complement
+              what you already own.
             </p>
           </Step>
 
           <Step number="04" title="Leave with clarity">
             <p className={stepBodyClassName}>
-              You&rsquo;ll walk away with a clearer understanding of your
-              personal style and practical ways to put it into action.
-            </p>
-            <p className={stepBodyClassName}>
-              The goal isn&rsquo;t simply to create beautiful outfits for
-              one day.
-            </p>
-            <p className={stepBodyClassName}>
-              It&rsquo;s to make getting dressed feel easier, more
-              confident, and more like you.
+              Not just beautiful outfits for one day — a way of getting
+              dressed that feels easier, and more like you.
             </p>
           </Step>
+        </div>
+
+        {/* SECTION 5.5 — closing diptych, mirrored from the steps 02/03
+            diptych above (large crop on the right this time) for
+            alternating rhythm. */}
+        <div className="max-w-[920px] mx-auto px-6 sm:px-10 pt-16 lg:pt-28 pb-16 lg:pb-28">
+          <div className="flex flex-row-reverse gap-4 sm:gap-6 items-start">
+            <img
+              src={blackDressSilverBagFull}
+              alt="Model in a black v-neck slip dress with a silver mesh bag, full length"
+              className="flex-1 h-[320px] sm:h-[420px] object-cover"
+            />
+            <img
+              src={silverBagDetailBw}
+              alt="Black and white detail photo of a silver metallic bag worn on the shoulder"
+              className="w-[120px] sm:w-[160px] h-[320px] sm:h-[420px] object-cover"
+            />
+          </div>
         </div>
 
         {/* SECTION 6 — Pricing. No numbers/rates/figures anywhere — the
@@ -223,10 +250,9 @@ export default function Experience() {
               A personalized experience, tailored to you.
             </h2>
             <p className="font-sans text-base lg:text-lg leading-relaxed max-w-[58ch] mx-auto text-espresso mb-8">
-              Every styling experience is different. After your
-              complimentary consultation, I&rsquo;ll recommend the
-              service and amount of time that best suits your needs and
-              provide your investment before we move forward.
+              Every experience is different. After your consultation,
+              I&rsquo;ll recommend what fits and share your investment
+              before we move forward.
             </p>
             <Link
               to="/services"
