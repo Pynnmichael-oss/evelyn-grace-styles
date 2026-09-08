@@ -80,9 +80,28 @@ export default function Hero() {
           alt="Evelyn Allen adjusting a black v-neck dress on a client during a styling session"
           className={`${rotatedFillImageClassName} object-top`}
         />
+
+        {/* Brand overlay, not aria-hidden — this is the page's primary
+            mark now that Nav's wordmark is suppressed on Home (see
+            hideWordmark below), so it stays in the a11y tree as real
+            text. Fraunces-italic classes reused verbatim from About's
+            confirmed quote treatment (About.jsx's h1), just at a size
+            scaled down for this container instead of About's full-bleed
+            headline scale — no new type scale introduced. Color/opacity
+            (cream at 55%) picked per-photo by sampling the actual pixel
+            region this text sits over — see
+            scripts/sample-hero-colors.py's output: sampled avg
+            #5E514B, cream beats espresso at full strength (7.20:1 vs
+            1.72:1), and 55% is the lowest 5%-step opacity that still
+            clears a margined 3.3:1 (measures 3.44:1) against WCAG's 3:1
+            large-text floor. Flat color only — no shadow/blur/gradient
+            per the locked design system. */}
+        <p className="absolute inset-0 z-10 flex items-center justify-center text-center font-serif italic font-light text-3xl md:text-5xl text-balance text-cream/55">
+          Evelyn Grace
+        </p>
       </div>
 
-      <Nav />
+      <Nav hideWordmark />
 
       <div className="relative w-full h-[120vw] md:h-screen overflow-hidden">
         {/* Already black-and-white in the source file — no grayscale
@@ -97,6 +116,17 @@ export default function Hero() {
           alt="Close-up of a woven metallic bag worn on the shoulder, styled with a black dress"
           className={`${rotatedFillImageClassName} object-[50%_56%]`}
         />
+
+        {/* Same treatment as photo 1's overlay above, sampled
+            independently against this photo's own visible region
+            (avg #474747 — darker than photo 1's) rather than reusing
+            photo 1's numbers: cream still wins at full strength (8.78:1
+            vs 1.41:1 for espresso), and because the background here is
+            darker, a lower 50% opacity is already enough to clear the
+            same margined 3.3:1 target (measures 3.56:1). */}
+        <p className="absolute inset-0 z-10 flex items-center justify-center text-center font-serif italic font-light text-3xl md:text-5xl text-balance text-cream/50">
+          Evelyn Grace
+        </p>
       </div>
     </section>
   )

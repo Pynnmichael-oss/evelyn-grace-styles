@@ -62,8 +62,16 @@ function Divider({ className = '' }) {
  * not just skipped by a condition). "Contact" can't become active via
  * this check either, since it's an anchor (href, no `to`) rather than
  * a route — consistent with it never having been a route.
+ *
+ * `hideWordmark` (default false): Home passes this because its hero
+ * photos now carry an "Evelyn Grace" overlay of their own — showing
+ * the wordmark a second time, immediately below it, would be
+ * redundant. Only the wordmark `<Link>` and its trailing `Divider` are
+ * skipped; NAV_LINKS render exactly as they do everywhere else, and
+ * every other page keeps calling Nav with no such prop, so nothing
+ * about their render changes.
  */
-export default function Nav({ className = 'px-6 sm:px-10 py-5 md:py-6' }) {
+export default function Nav({ className = 'px-6 sm:px-10 py-5 md:py-6', hideWordmark = false }) {
   const { pathname } = useLocation()
 
   return (
@@ -71,11 +79,15 @@ export default function Nav({ className = 'px-6 sm:px-10 py-5 md:py-6' }) {
       aria-label="Primary"
       className={`bg-sand flex flex-col md:flex-row items-center justify-center gap-y-3 ${className}`}
     >
-      <Link to="/" className={`${itemClassName} inline-flex items-center min-h-11 md:min-h-0`}>
-        Evelyn Grace Styles
-      </Link>
+      {!hideWordmark && (
+        <>
+          <Link to="/" className={`${itemClassName} inline-flex items-center min-h-11 md:min-h-0`}>
+            Evelyn Grace Styles
+          </Link>
 
-      <Divider className="mx-5" />
+          <Divider className="mx-5" />
+        </>
+      )}
 
       <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 md:gap-x-0 md:gap-y-0">
         {NAV_LINKS.map((link, i) => {
