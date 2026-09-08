@@ -81,23 +81,41 @@ export default function Hero() {
           className={`${rotatedFillImageClassName} object-top`}
         />
 
+        {/* Wash layer, between the photo and the text: flattens the
+            photo's own tone toward sand before the text-contrast math
+            runs, so the two photos (originally quite different in
+            average tone) read as one consistent surface for the
+            wordmark to sit on. No z-index of its own needed — it's
+            simply painted after the <img> (no z-index on that either)
+            and before the z-20 text below, so normal DOM paint order
+            already puts it above the photo and below the text. */}
+        <div className="absolute inset-0 bg-sand/45" />
+
         {/* Brand overlay, not aria-hidden — this is the page's primary
             mark now that Nav's wordmark is suppressed on Home (see
             hideWordmark below), so it stays in the a11y tree as real
             text. Fraunces-italic classes reused verbatim from About's
-            confirmed quote treatment (About.jsx's h1), just at a size
-            scaled down for this container instead of About's full-bleed
-            headline scale — no new type scale introduced. Color/opacity
-            (cream at 55%) picked per-photo by sampling the actual pixel
-            region this text sits over — see
-            scripts/sample-hero-colors.py's output: sampled avg
-            #5E514B, cream beats espresso at full strength (7.20:1 vs
-            1.72:1), and 55% is the lowest 5%-step opacity that still
-            clears a margined 3.3:1 (measures 3.44:1) against WCAG's 3:1
-            large-text floor. Flat color only — no shadow/blur/gradient
-            per the locked design system. */}
-        <p className="absolute inset-0 z-10 flex items-center justify-center text-center font-serif italic font-light text-3xl md:text-5xl text-balance text-cream/55">
-          Evelyn Grace
+            confirmed quote treatment (About.jsx's h1) — font-serif
+            italic untouched; font-medium here replaces the old
+            font-light for more presence now that the wash lightens
+            what's behind it. z-20 (up from z-10) keeps it above the
+            new wash layer.
+            Color/opacity recalculated against the photo+wash composite,
+            not the raw photo — see scripts/sample-hero-colors.py: the
+            sand/45 wash lightens both photos enough that espresso now
+            beats cream (4.60:1 vs 2.69:1 here), reversing the pre-wash
+            choice. Full opacity, not a partial one: diluting dark
+            espresso toward this now-light composite costs real
+            contrast fast (~0.3-0.35:1 per 5%), so the minimal opacity
+            that clears the margined 3.3:1 target (80% here) leaves
+            almost no slack, while full opacity costs nothing visually
+            — the wash alone already supplies the "faded into the
+            photo" softness — and buys a real margin (4.60:1, clearing
+            even the stricter 4.5:1 normal-text threshold). Flat color
+            only — no shadow/blur/gradient per the locked design
+            system. */}
+        <p className="absolute inset-0 z-20 flex items-center justify-center text-center font-serif italic font-medium text-3xl md:text-5xl text-balance text-espresso">
+          Evelyn Grace Styles
         </p>
       </div>
 
@@ -117,15 +135,20 @@ export default function Hero() {
           className={`${rotatedFillImageClassName} object-[50%_56%]`}
         />
 
+        {/* Same wash treatment as photo 1's above. */}
+        <div className="absolute inset-0 bg-sand/45" />
+
         {/* Same treatment as photo 1's overlay above, sampled
-            independently against this photo's own visible region
-            (avg #474747 — darker than photo 1's) rather than reusing
-            photo 1's numbers: cream still wins at full strength (8.78:1
-            vs 1.41:1 for espresso), and because the background here is
-            darker, a lower 50% opacity is already enough to clear the
-            same margined 3.3:1 target (measures 3.56:1). */}
-        <p className="absolute inset-0 z-10 flex items-center justify-center text-center font-serif italic font-light text-3xl md:text-5xl text-balance text-cream/50">
-          Evelyn Grace
+            independently against this photo's own post-wash composite
+            (avg #474747 raw, composite #95928E — slightly darker than
+            photo 1's composite) rather than reusing photo 1's numbers:
+            espresso still wins here too (4.24:1 vs 2.93:1 for cream at
+            full opacity), and full opacity is used for the same reason
+            — the minimal opacity clearing the margined 3.3:1 here is
+            85%, leaving little slack, while full opacity clears with
+            real margin. */}
+        <p className="absolute inset-0 z-20 flex items-center justify-center text-center font-serif italic font-medium text-3xl md:text-5xl text-balance text-espresso">
+          Evelyn Grace Styles
         </p>
       </div>
     </section>
