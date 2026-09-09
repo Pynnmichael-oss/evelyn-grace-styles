@@ -37,7 +37,15 @@ from PIL import Image
 CREAM = (0xFB, 0xF8, 0xF4)      # #FBF8F4
 ESPRESSO = (0x3A, 0x2E, 0x27)   # #3A2E27
 SAND = (0xF4, 0xED, 0xE4)       # #F4EDE4
-WASH_OPACITY = 0.45
+# bg-sand/45 read as "too transparent" in review -- the wash was
+# faded/washing out the photos more than intended. Dropped to 20%:
+# enough to still soften/unify the two photos' tones (the wash's
+# original purpose) without the photo itself reading as faded out.
+# 35% is a fragile crossover zone (cream and espresso trade the win
+# between the two photos, both marginal) -- 20% sits solidly on the
+# cream side for both, with real margin, so there's one shared color
+# again instead of a per-photo split.
+WASH_OPACITY = 0.20
 
 PHOTOS = [
     ("hero-photo-1.jpg", 0.50, 0.30),  # object-top

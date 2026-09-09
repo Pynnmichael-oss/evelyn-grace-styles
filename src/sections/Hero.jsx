@@ -85,11 +85,16 @@ export default function Hero() {
             photo's own tone toward sand before the text-contrast math
             runs, so the two photos (originally quite different in
             average tone) read as one consistent surface for the
-            wordmark to sit on. No z-index of its own needed — it's
-            simply painted after the <img> (no z-index on that either)
-            and before the z-20 text below, so normal DOM paint order
-            already puts it above the photo and below the text. */}
-        <div className="absolute inset-0 bg-sand/45" />
+            wordmark to sit on. Dropped from /45 to /20 after review
+            called /45 "too transparent" — it was fading the photo
+            itself out more than intended, not just softening it. /20
+            still unifies the two photos' tones but leaves the photo
+            clearly the dominant thing on screen. No z-index of its own
+            needed — it's simply painted after the <img> (no z-index on
+            that either) and before the z-20 text below, so normal DOM
+            paint order already puts it above the photo and below the
+            text. */}
+        <div className="absolute inset-0 bg-sand/20" />
 
         {/* Brand overlay, not aria-hidden — this is the page's primary
             mark now that Nav's wordmark is suppressed on Home (see
@@ -97,24 +102,19 @@ export default function Hero() {
             text. Fraunces-italic classes reused verbatim from About's
             confirmed quote treatment (About.jsx's h1) — font-serif
             italic untouched; font-medium here replaces the old
-            font-light for more presence now that the wash lightens
-            what's behind it. z-20 (up from z-10) keeps it above the
-            new wash layer.
+            font-light for more presence. z-20 keeps it above the wash
+            layer.
             Color/opacity recalculated against the photo+wash composite,
-            not the raw photo — see scripts/sample-hero-colors.py: the
-            sand/45 wash lightens both photos enough that espresso now
-            beats cream (4.60:1 vs 2.69:1 here), reversing the pre-wash
-            choice. Full opacity, not a partial one: diluting dark
-            espresso toward this now-light composite costs real
-            contrast fast (~0.3-0.35:1 per 5%), so the minimal opacity
-            that clears the margined 3.3:1 target (80% here) leaves
-            almost no slack, while full opacity costs nothing visually
-            — the wash alone already supplies the "faded into the
-            photo" softness — and buys a real margin (4.60:1, clearing
-            even the stricter 4.5:1 normal-text threshold). Flat color
-            only — no shadow/blur/gradient per the locked design
-            system. */}
-        <p className="absolute inset-0 z-20 flex items-center justify-center text-center font-serif italic font-medium text-3xl md:text-5xl text-balance text-espresso">
+            not the raw photo — see scripts/sample-hero-colors.py. At
+            the original /45 wash, lightening was enough that espresso
+            beat cream; dropping to /20 reverses that back to cream
+            (4.53:1 vs 2.74:1 for espresso here) since the composite is
+            darker again at this lower wash strength. Full opacity, not
+            partial: it clears with real margin (4.53:1, above even the
+            stricter 4.5:1 normal-text threshold) and the wash still
+            supplies what softening is wanted. Flat color only — no
+            shadow/blur/gradient per the locked design system. */}
+        <p className="absolute inset-0 z-20 flex items-center justify-center text-center font-serif italic font-medium text-3xl md:text-5xl text-balance text-cream">
           Evelyn Grace Styles
         </p>
       </div>
@@ -136,18 +136,18 @@ export default function Hero() {
         />
 
         {/* Same wash treatment as photo 1's above. */}
-        <div className="absolute inset-0 bg-sand/45" />
+        <div className="absolute inset-0 bg-sand/20" />
 
         {/* Same treatment as photo 1's overlay above, sampled
             independently against this photo's own post-wash composite
-            (avg #474747 raw, composite #95928E — slightly darker than
-            photo 1's composite) rather than reusing photo 1's numbers:
-            espresso still wins here too (4.24:1 vs 2.93:1 for cream at
-            full opacity), and full opacity is used for the same reason
-            — the minimal opacity clearing the margined 3.3:1 here is
-            85%, leaving little slack, while full opacity clears with
-            real margin. */}
-        <p className="absolute inset-0 z-20 flex items-center justify-center text-center font-serif italic font-medium text-3xl md:text-5xl text-balance text-espresso">
+            (avg #474747 raw, composite #6A6866 at /20 — slightly darker
+            than photo 1's composite) rather than reusing photo 1's
+            numbers: cream wins here too, with more margin than photo 1
+            (5.24:1 vs 2.37:1 for espresso at full opacity), for the
+            same reason — the lower wash strength keeps the composite
+            dark enough that cream is the clear winner again on both
+            photos. */}
+        <p className="absolute inset-0 z-20 flex items-center justify-center text-center font-serif italic font-medium text-3xl md:text-5xl text-balance text-cream">
           Evelyn Grace Styles
         </p>
       </div>
