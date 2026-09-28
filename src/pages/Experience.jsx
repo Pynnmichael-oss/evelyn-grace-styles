@@ -56,14 +56,12 @@ function Step({ number, title, dividerAbove = true, children, cta }) {
  * here, not hidden, and the divider between those two steps (previously
  * omitted because the photo supplied the separation) is restored.
  *
- * Accessibility note, same fix as every other interior page: the
- * spec's literal text-xs for terracotta-deep labels measures 4.032:1
- * on sand, which fails WCAG AA's 4.5:1 for normal-size text (General
- * Sans only loads weights 400/500 site-wide, so the large-text bold
- * exception isn't available). Both terracotta-deep labels (page label,
- * "( Pricing )") and the four step numerals are text-2xl instead of
- * text-xs — the smallest size that legitimately clears the large-text
- * 3:1 threshold at this color.
+ * Accessibility note, same fix as every other interior page: terracotta-deep
+ * is now #9B5A3A, measured 4.61:1 on sand — already clears WCAG AA's 4.5:1
+ * normal-text threshold outright. Both terracotta-deep labels (page label,
+ * "( Pricing )") and the four step numerals stay text-2xl instead of
+ * text-xs (kept as-is; this pass only updates the cited figures, not the
+ * sizing).
  *
  * sr-only h2 above the steps preserves a clean h1 -> h2 -> h3 outline,
  * since the four step titles are meaningful headings in their own

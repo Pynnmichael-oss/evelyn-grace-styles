@@ -7,7 +7,7 @@
 export default function Button({ as: Tag = 'button', className = '', children, ...props }) {
   return (
     <Tag
-      className={`inline-block bg-terracotta-deep text-cream px-8 py-4 rounded-none caption-label text-[13px] transition-colors duration-200 ease-out hover:bg-[#9B5A3A] ${className}`}
+      className={`inline-block bg-terracotta-deep text-cream px-8 py-4 rounded-none caption-label text-[13px] transition-colors duration-200 ease-out hover:bg-espresso ${className}`}
       {...props}
     >
       {children}

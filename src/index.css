@@ -17,7 +17,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid #a8623f; /* terracotta-deep */
+    outline: 2px solid #9b5a3a; /* terracotta-deep */
     outline-offset: 2px;
   }
 }

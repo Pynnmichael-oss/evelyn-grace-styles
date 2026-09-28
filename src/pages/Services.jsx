@@ -62,14 +62,12 @@ export default function Services() {
             "Services" itself is restyled to the new label treatment. */}
         <div className="mx-auto max-w-[1200px] px-6 sm:px-10 pt-16 lg:pt-28 pb-24 md:pb-40 lg:pb-48">
           <Reveal className="text-center mb-4">
-            {/* text-2xl, not the spec's literal text-xs — measured
-                terracotta-deep on sand at 4.032:1, which fails WCAG AA's
-                4.5:1 for normal-size text (General Sans only loads
-                weights 400/500 site-wide, so the "large text" bold
-                exception isn't available either). text-2xl (24px) is
-                the smallest size that legitimately clears the large-text
-                3:1 threshold at this color — same fix already applied
-                on About's two terracotta-deep labels. */}
+            {/* text-2xl, not the spec's literal text-xs — kept as-is here
+                (comments-only pass). terracotta-deep is now #9B5A3A:
+                measured 4.61:1 on sand, which clears WCAG AA's 4.5:1
+                normal-text threshold outright, so the large-text sizing
+                below is no longer load-bearing for contrast — same token
+                change applied on About's two terracotta-deep labels. */}
             <p className="font-sans uppercase tracking-[0.22em] text-2xl text-terracotta-deep">
               Services
             </p>

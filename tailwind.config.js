@@ -8,7 +8,7 @@ export default {
         espresso: '#3A2E27',
         taupe: '#B8A99A',
         terracotta: '#C17F59',
-        'terracotta-deep': '#A8623F',
+        'terracotta-deep': '#9B5A3A',
         cream: '#FBF8F4',
       },
       fontFamily: {

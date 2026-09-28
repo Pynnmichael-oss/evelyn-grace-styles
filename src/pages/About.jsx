@@ -32,14 +32,13 @@ const BELIEFS = [
  * the old "Follow the Journey" social-feed embed section are both gone
  * entirely — not hidden, not relocated — per the same spec.
  *
- * Accessibility note, still applicable in the new layout: the spec's
- * literal text-xs for terracotta-deep labels ("My style is" in the
- * closer, "What I believe" above the belief lines) measures 4.032:1 on
- * sand, which clears WCAG AA's "large text" 3:1 threshold but fails the
- * 4.5:1 threshold that applies to text this small. General Sans is only
- * loaded at weights 400/500 site-wide (confirmed in index.html), so the
- * large-text *bold* exception isn't available either. That leaves only
- * the >=24px path: both labels are text-2xl (24px), not text-xs.
+ * Accessibility note, still applicable in the new layout: terracotta-deep
+ * is now #9B5A3A, measured 4.61:1 on sand — already clears WCAG AA's 4.5:1
+ * normal-text threshold outright, so the large-text sizing this note used
+ * to require is no longer load-bearing for contrast. Both labels ("My
+ * style is" in the closer, "What I believe" above the belief lines) stay
+ * text-2xl (24px), not text-xs (kept as-is; this pass only updates the
+ * cited figures).
  *
  * Nav renders first, unbordered-header style (pt-8/pb-8/lg:pt-10/
  * lg:pb-10 + bottom hairline) — unchanged from before.

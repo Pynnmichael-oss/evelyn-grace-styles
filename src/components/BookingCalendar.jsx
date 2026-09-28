@@ -197,9 +197,11 @@ export default function BookingCalendar() {
                 aria-label={`${FULL_DATE_FORMATTER.format(date)} — available`}
                 className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full text-sm font-sans transition-colors duration-200 ease-out ${
                   selected
-                    ? // cream text on terracotta-deep measured ~4.42:1,
-                      // just under the 4.5:1 normal-text minimum — espresso
-                      // fill clears it with margin.
+                    ? // Historical note: cream text on terracotta-deep (old
+                      // #A8623F) measured ~4.42:1, just under the 4.5:1
+                      // normal-text minimum. terracotta-deep is now #9B5A3A
+                      // (5.06:1 with cream, clears it outright) — espresso
+                      // fill is kept here regardless, unchanged by this pass.
                       'border border-espresso bg-espresso text-cream'
                     : 'border border-terracotta text-espresso hover:bg-terracotta/10'
                 }`}
