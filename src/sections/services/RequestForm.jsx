@@ -6,7 +6,7 @@ import Button from '../../components/Button'
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xoealjwp'
 
 const fieldClassName =
-  'w-full bg-cream border border-taupe/40 px-4 py-3 font-sans text-espresso placeholder:text-espresso/40'
+  'w-full bg-cream border border-espresso/60 px-4 py-3 font-sans text-espresso placeholder:text-espresso/70'
 
 /**
  * The name/email/message request form repeated (with different copy)

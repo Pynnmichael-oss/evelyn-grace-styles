@@ -1,10 +1,6 @@
 import { Link } from 'react-router-dom'
 import Button from './Button'
 
-// Only place this URL exists in the codebase besides About's own
-// "Follow the Journey" Instagram link (a separate, untouched section).
-const INSTAGRAM_URL = 'https://www.instagram.com/evelyn123allen/'
-
 /**
  * Site-wide footer. Cream band (differentiates it from the sand page
  * above), one terracotta hairline as its top border — the only
@@ -76,14 +72,11 @@ export default function Footer({ showCta = true }) {
               (830) 456-4916
             </a>
             <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="mailto:evegracestyle@gmail.com"
               className="font-sans text-xs text-espresso hover:text-terracotta py-4 -my-4 transition-colors duration-200 ease-out"
             >
-              Instagram
+              evegracestyle@gmail.com
             </a>
-            {/* TODO: email pending confirmation from client */}
           </div>
         </div>
       </div>

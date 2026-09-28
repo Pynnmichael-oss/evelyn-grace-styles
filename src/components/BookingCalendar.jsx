@@ -51,7 +51,7 @@ function buildMonthGrid(year, month) {
 }
 
 const fieldClassName =
-  'w-full bg-sand border border-taupe/40 px-4 py-3 font-sans text-espresso placeholder:text-espresso/40'
+  'w-full bg-sand border border-espresso/60 px-4 py-3 font-sans text-espresso placeholder:text-espresso/70'
 
 /**
  * Month-view request-a-time calendar. Not a live-availability
@@ -179,7 +179,7 @@ export default function BookingCalendar() {
             // Weekend / past day — plain, non-interactive, greyed out.
             return (
               <div key={i} className="flex items-center justify-center">
-                <span className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full text-sm font-sans text-taupe">
+                <span className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full text-sm font-sans text-espresso/50">
                   {date.getDate()}
                 </span>
               </div>
@@ -197,13 +197,10 @@ export default function BookingCalendar() {
                 aria-label={`${FULL_DATE_FORMATTER.format(date)} — available`}
                 className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full text-sm font-sans transition-colors duration-200 ease-out ${
                   selected
-                    ? // Filled with terracotta-deep rather than the
-                      // lighter base terracotta used for the outline:
-                      // cream text on base terracotta only clears
-                      // ~3:1 contrast, well under the 4.5:1 normal-text
-                      // minimum. terracotta-deep (the same fill already
-                      // used for the site's one Button style) clears it.
-                      'border border-terracotta-deep bg-terracotta-deep text-cream'
+                    ? // cream text on terracotta-deep measured ~4.42:1,
+                      // just under the 4.5:1 normal-text minimum — espresso
+                      // fill clears it with margin.
+                      'border border-espresso bg-espresso text-cream'
                     : 'border border-terracotta text-espresso hover:bg-terracotta/10'
                 }`}
               >

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import AccordionItem from '../components/AccordionItem'
@@ -35,7 +36,13 @@ function Lead({ children }) {
  * than a date/time picker.
  */
 export default function Services() {
-  const [openId, setOpenId] = useState('consultation')
+  const { hash } = useLocation()
+  const [openId, setOpenId] = useState(() => {
+    const hashId = hash.slice(1)
+    return ['consultation', 'virtual', 'in-home', 'travel-event'].includes(hashId)
+      ? hashId
+      : 'consultation'
+  })
 
   const toggle = (id) => setOpenId((prev) => (prev === id ? null : id))
 
