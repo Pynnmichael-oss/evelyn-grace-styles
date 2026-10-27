@@ -131,7 +131,7 @@ export default function BookingCalendar() {
     return (
       <div className="bg-cream px-6 py-10 md:px-10 md:py-12 text-center" aria-live="polite">
         <p className="font-sans text-espresso leading-relaxed">
-          Thanks — I&rsquo;ll confirm your time by email shortly.
+          Thanks — I&rsquo;ll personally reach out to confirm your time.
         </p>
       </div>
     )
