@@ -4,8 +4,8 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // GitHub Pages serves project sites from /<repo-name>/, so the build
-  // needs every asset URL prefixed with the repo name. Update this if
-  // the repo is ever renamed.
-  base: '/evelyn-grace-styles/',
+  // Vercel and the custom domain serve from the root. GitHub Pages serves
+  // project sites from /<repo-name>/, so the gh-pages deploy script sets
+  // GITHUB_PAGES=true to prefix asset URLs with the repo name.
+  base: process.env.GITHUB_PAGES ? '/evelyn-grace-styles/' : '/',
 })
