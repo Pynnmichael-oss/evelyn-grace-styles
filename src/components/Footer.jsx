@@ -7,12 +7,6 @@ import Button from './Button'
  * decorative terracotta anywhere in this component; the CTA button is
  * terracotta too, but that's Button's own styling, not this file's.
  *
- * `id="contact"` is preserved from the previous Footer on purpose:
- * Header's nav has a plain in-page anchor (`{ label: 'Contact', href:
- * '#contact' }`, not a route) that scrolls to whatever element carries
- * this id. Dropping it would silently break that nav link on every
- * page that renders this component.
- *
  * All four stacked blocks (headline+CTA, divider, meta row, contact
  * line) share ONE flex `gap-12` on their common parent rather than
  * per-element margins — a single spacing value, and no leftover gap to

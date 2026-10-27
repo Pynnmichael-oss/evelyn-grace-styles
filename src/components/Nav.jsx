@@ -1,16 +1,11 @@
 import { Link, useLocation } from 'react-router-dom'
 
-// Contact is a plain anchor (every page renders its own Footer with
-// id="contact"), same convention as the old Header.jsx's off-canvas
-// panel used; the rest are real routes. Note this means "Contact" here
-// never points at the real /contact route — a pre-existing quirk, not
-// something this pass introduced or was asked to fix.
 const NAV_LINKS = [
   { label: 'About', to: '/about' },
   { label: 'Experience', to: '/experience' },
   { label: 'Services', to: '/services' },
   { label: 'Shop', to: '/shop' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Contact', to: '/contact' },
 ]
 
 // Same size/weight for every item, wordmark included — this bar has no
@@ -59,9 +54,7 @@ function Divider({ className = '' }) {
  * link's `to`. Underline only, per spec — text color/weight/size never
  * change for the active item, and "Evelyn Grace Styles" never receives
  * it (it's rendered outside the NAV_LINKS.map/active check entirely,
- * not just skipped by a condition). "Contact" can't become active via
- * this check either, since it's an anchor (href, no `to`) rather than
- * a route — consistent with it never having been a route.
+ * not just skipped by a condition).
  *
  * `hideWordmark` (default false): Home passes this because its hero
  * photos now carry an "Evelyn Grace" overlay of their own — showing
@@ -96,22 +89,13 @@ export default function Nav({ className = 'px-6 sm:px-10 py-5 md:py-6', hideWord
           return (
             <span key={link.label} className="flex items-center">
               {i > 0 && <Divider className="mx-4 md:mx-5" />}
-              {link.to ? (
-                <Link
-                  to={link.to}
-                  aria-current={isActive ? 'page' : undefined}
-                  className={`${itemClassName} inline-flex items-center min-h-11 md:min-h-0 px-1 ${isActive ? activeClassName : ''}`}
-                >
-                  {link.label}
-                </Link>
-              ) : (
-                <a
-                  href={link.href}
-                  className={`${itemClassName} inline-flex items-center min-h-11 md:min-h-0 px-1`}
-                >
-                  {link.label}
-                </a>
-              )}
+              <Link
+                to={link.to}
+                aria-current={isActive ? 'page' : undefined}
+                className={`${itemClassName} inline-flex items-center min-h-11 md:min-h-0 px-1 ${isActive ? activeClassName : ''}`}
+              >
+                {link.label}
+              </Link>
             </span>
           )
         })}
