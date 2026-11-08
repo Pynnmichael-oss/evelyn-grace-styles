@@ -1,4 +1,5 @@
 import Nav from '../components/Nav'
+import { Monogram } from '../components/Logo'
 // Imported (not referenced as a raw "/hero-photo-1.jpg" string) so Vite
 // resolves them through its asset pipeline — the site is built with
 // base: '/evelyn-grace-styles/' for GitHub Pages, and a hardcoded
@@ -113,10 +114,30 @@ export default function Hero() {
             partial: it clears with real margin (4.53:1, above even the
             stricter 4.5:1 normal-text threshold) and the wash still
             supplies what softening is wanted. Flat color only — no
-            shadow/blur/gradient per the locked design system. */}
-        <p className="absolute inset-0 z-20 flex items-center justify-center text-center font-serif italic font-medium text-3xl md:text-5xl text-balance text-cream">
-          Evelyn Grace Styles
-        </p>
+            shadow/blur/gradient per the locked design system.
+
+            The monogram above the name makes this the full brand
+            lockup rather than a bare wordmark. It uses the cream mark
+            (tone="cream"), not the default espresso one, for exactly
+            the contrast reason described above — the espresso mark
+            measures 2.74:1 on this composite and is not usable here.
+
+            The name stays REAL TEXT, not the baked-in wordmark from
+            logo-lockup.png: this is still the page's primary mark with
+            Nav's suppressed on Home, so it must remain in the a11y
+            tree and selectable/indexable. The <img> is therefore the
+            decorative half (alt="") and the <p> carries the meaning —
+            together they read once, not twice.
+
+            The wrapper is flex-col with the same inset-0 centering the
+            <p> used on its own before, so the pair stays optically
+            centered as a unit at every breakpoint. */}
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 md:gap-6 px-6">
+          <Monogram tone="cream" className="h-16 md:h-24 w-auto" />
+          <p className="text-center font-serif italic font-medium text-3xl md:text-5xl text-balance text-cream">
+            Evelyn Grace Styles
+          </p>
+        </div>
       </div>
 
       <Nav hideWordmark />
@@ -146,10 +167,16 @@ export default function Hero() {
             (5.24:1 vs 2.37:1 for espresso at full opacity), for the
             same reason — the lower wash strength keeps the composite
             dark enough that cream is the clear winner again on both
-            photos. */}
-        <p className="absolute inset-0 z-20 flex items-center justify-center text-center font-serif italic font-medium text-3xl md:text-5xl text-balance text-cream">
-          Evelyn Grace Styles
-        </p>
+            photos. Monogram + real-text name, identical structure and
+            sizing to photo 1's — see that one for the full rationale
+            on the cream tone and on why the name is not baked into the
+            image. */}
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 md:gap-6 px-6">
+          <Monogram tone="cream" className="h-16 md:h-24 w-auto" />
+          <p className="text-center font-serif italic font-medium text-3xl md:text-5xl text-balance text-cream">
+            Evelyn Grace Styles
+          </p>
+        </div>
       </div>
     </section>
   )

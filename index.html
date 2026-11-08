@@ -2,9 +2,46 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!--
+      Brand monogram, replacing the default Vite placeholder mark.
+      Inked espresso on a sand tile rather than transparent: a bare
+      transparent glyph is near-invisible against a dark browser tab
+      strip, and the tile is the brand's own background color anyway.
+      Vite rewrites these root-absolute hrefs against `base` at build
+      time, so they resolve under the /evelyn-grace-styles/ GitHub
+      Pages subpath as well as at the Vercel root.
+    -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Evelyn Grace Styles | Personal Styling in Phoenix, AZ</title>
+    <meta
+      name="description"
+      content="Personal styling in Phoenix, AZ — wardrobe edits, event styling, and shopping, by Evelyn Grace Styles."
+    />
+
+    <!--
+      Link-preview card (iMessage, Instagram DMs, Facebook, LinkedIn).
+      og:image MUST be an absolute URL — scrapers don't resolve
+      relative paths — so unlike the icons above this one is hardcoded
+      to the production origin and is NOT rewritten by Vite's `base`.
+      That means previews always pull the Vercel-hosted copy, including
+      when the page is served from GitHub Pages; update this if the
+      site moves to a custom domain.
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Evelyn Grace Styles" />
+    <meta property="og:title" content="Evelyn Grace Styles | Personal Styling in Phoenix, AZ" />
+    <meta
+      property="og:description"
+      content="Personal styling in Phoenix, AZ — wardrobe edits, event styling, and shopping, by Evelyn Grace Styles."
+    />
+    <meta property="og:url" content="https://evelyn-grace-styles.vercel.app/" />
+    <meta property="og:image" content="https://evelyn-grace-styles.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The Evelyn Grace Styles monogram and wordmark." />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Fraunces (headings) — Google Fonts, variable, weights 300/400 -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -4,6 +4,37 @@
     <meta charset="UTF-8" />
     <title>Evelyn Grace Styles</title>
     <!--
+      This page never settles — the script below redirects before a
+      user can read it — so this styling exists only to make the
+      moment it IS on screen look like the site instead of a white
+      flash. Inlined (no stylesheet, no build step): public/ is copied
+      verbatim, so nothing here goes through Vite or Tailwind.
+
+      The monogram's src is hardcoded to the /evelyn-grace-styles/
+      prefix rather than written relative. GitHub Pages serves this
+      same file for a 404 at any depth (/evelyn-grace-styles/a/b/c),
+      and a relative src would resolve against that requested path and
+      miss. This file is already GitHub-Pages-only and already
+      hardcodes the same assumption in pathSegmentsToKeep below.
+    -->
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #fbf8f4;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      img {
+        width: 72px;
+        height: auto;
+      }
+    </style>
+    <!--
       GitHub Pages has no server-side rewrites, so a direct visit or
       refresh on a route like /evelyn-grace-styles/about 404s. This
       redirects that request back to index.html with the real path
@@ -35,5 +66,7 @@
       )
     </script>
   </head>
-  <body></body>
+  <body>
+    <img src="/evelyn-grace-styles/apple-touch-icon.png" alt="Evelyn Grace Styles" />
+  </body>
 </html>

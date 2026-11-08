@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
+import { Monogram } from './Logo'
 
 const NAV_LINKS = [
   { label: 'About', to: '/about' },
@@ -8,8 +9,10 @@ const NAV_LINKS = [
   { label: 'Contact', to: '/contact' },
 ]
 
-// Same size/weight for every item, wordmark included — this bar has no
-// single emphasized element. Smaller/tighter at the base (mobile)
+// Same size/weight for every link — this bar has no single emphasized
+// element. The brand monogram that opens the bar isn't text and so
+// can't share this class, but it's sized to match these labels
+// optically rather than to outrank them. Smaller/tighter at the base (mobile)
 // breakpoint than at md+: six items wrapping to two lines at narrow
 // widths reads better a step down in both size and tracking than the
 // desktop treatment, which is unchanged from the original inline strip.
@@ -52,17 +55,18 @@ function Divider({ className = '' }) {
  *
  * Active state: compares the current route (useLocation) against each
  * link's `to`. Underline only, per spec — text color/weight/size never
- * change for the active item, and "Evelyn Grace Styles" never receives
- * it (it's rendered outside the NAV_LINKS.map/active check entirely,
- * not just skipped by a condition).
+ * change for the active item, and the home/monogram link never
+ * receives it (it's rendered outside the NAV_LINKS.map/active check
+ * entirely, not just skipped by a condition).
  *
  * `hideWordmark` (default false): Home passes this because its hero
  * photos now carry an "Evelyn Grace" overlay of their own — showing
- * the wordmark a second time, immediately below it, would be
- * redundant. Only the wordmark `<Link>` and its trailing `Divider` are
- * skipped; NAV_LINKS render exactly as they do everywhere else, and
- * every other page keeps calling Nav with no such prop, so nothing
- * about their render changes.
+ * the brand mark a second time, immediately below it, would be
+ * redundant. The prop name predates the monogram and still describes
+ * what it does: skip the brand link that opens the bar, plus its
+ * trailing `Divider`. NAV_LINKS render exactly as they do everywhere
+ * else, and every other page keeps calling Nav with no such prop, so
+ * nothing about their render changes.
  */
 export default function Nav({ className = 'px-6 sm:px-10 py-5 md:py-6', hideWordmark = false }) {
   const { pathname } = useLocation()
@@ -74,8 +78,18 @@ export default function Nav({ className = 'px-6 sm:px-10 py-5 md:py-6', hideWord
     >
       {!hideWordmark && (
         <>
-          <Link to="/" className={`${itemClassName} inline-flex items-center min-h-11 md:min-h-0`}>
-            Evelyn Grace Styles
+          {/* The brand monogram stands in for what used to be the
+              "Evelyn Grace Styles" text link. Kept at h-5/md:h-6 so its
+              optical weight matches the 11/12px tracked labels beside it
+              — this bar still has no single emphasized element, and the
+              mark is NOT scaled up to act as one. The accessible name
+              carries the full brand name the glyph replaces, so the link
+              is still announced as "Evelyn Grace Styles, home". */}
+          <Link
+            to="/"
+            className="inline-flex items-center min-h-11 md:min-h-0 opacity-90 hover:opacity-100 transition-opacity duration-200 ease-out"
+          >
+            <Monogram className="h-5 md:h-6 w-auto" alt="Evelyn Grace Styles, home" />
           </Link>
 
           <Divider className="mx-5" />

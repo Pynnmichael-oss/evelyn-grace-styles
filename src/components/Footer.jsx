@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Button from './Button'
+import { Lockup } from './Logo'
 
 /**
  * Site-wide footer. Cream band (differentiates it from the sand page
@@ -7,8 +8,8 @@ import Button from './Button'
  * decorative terracotta anywhere in this component; the CTA button is
  * terracotta too, but that's Button's own styling, not this file's.
  *
- * All four stacked blocks (headline+CTA, divider, meta row, contact
- * line) share ONE flex `gap-12` on their common parent rather than
+ * All five stacked blocks (brand lockup, headline+CTA, divider, meta
+ * row, contact line) share ONE flex `gap-12` on their common parent rather than
  * per-element margins — a single spacing value, and no leftover gap to
  * clean up when `showCta` removes the first two children (CSS `gap`
  * only applies *between* the children that actually exist).
@@ -28,6 +29,20 @@ export default function Footer({ showCta = true }) {
     <footer id="contact" className="border-t border-terracotta bg-cream">
       <div className="mx-auto max-w-[1200px] px-6 sm:px-10 py-16 lg:py-24">
         <div className="flex flex-col items-center gap-12">
+          {/* Full lockup (cipher + wordmark) crowns the footer — the one
+              place on the site it appears at size. Unconditional: it is
+              not part of the CTA pair below and must survive showCta=false,
+              which is most pages. It joins the parent's single gap-12
+              rhythm as just another child, so no margin of its own.
+
+              alt="" on purpose: the lockup's wordmark renders "Evelyn
+              Grace Styles", but so does the live text in the meta row
+              a few lines down, inside this same footer. A real alt here
+              would make a screen reader announce the brand name twice
+              in a row for no added meaning, so the image is marked
+              decorative and the text below carries it. */}
+          <Lockup className="h-20 lg:h-24 w-auto" alt="" />
+
           {showCta && (
             <p className="font-serif font-light text-2xl lg:text-4xl text-balance text-center text-espresso">
               Tell me what you need styled.
